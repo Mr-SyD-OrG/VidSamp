@@ -7,13 +7,18 @@ import sys
 import typing
 import asyncio  
 from pymongo import MongoClient
-from Script import script
 from pyrogram import Client, filters
 from pyrogram.types import Message
-from database.users_chats_db import db
+from database import db
 from pyrogram.errors.exceptions.bad_request_400 import AccessTokenExpired, AccessTokenInvalid
-from info import API_ID, API_HASH, ADMINS, DATABASE_NAME, AUTH_CHANNEL
-from info import DATABASE_URI as MONGO_URL
+from config import Config
+
+
+API_ID = Config.API_ID
+API_HASH = Config.API_HASH
+ADMINS = Config.OWNER_ID
+DATABASE_NAME = Config.DB_NAME
+MONGO_URL = Config.DB_URL
 
 mongo_client = MongoClient(MONGO_URL)
 mongo_db = mongo_client["cloned_vjbotz"]
