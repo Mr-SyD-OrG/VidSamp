@@ -1531,10 +1531,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
                     InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
                     InlineKeyboardButton('⌬ ᴇΔʀꪀ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛᴇ𝘴 ⚝', callback_data='channels'),
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
+                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛᴇ𝘴 ⚝', callback_data='channels')
                 ],[
-                    InlineKeyboardButton('⊜ ᴄ0ᴍᴍᴀɴᴅꜱ ⊜', callback_data='help')
+                    InlineKeyboardButton('⊜ ᴄ0ᴍᴍᴀɴᴅꜱ ⊜', callback_data='help'),
+                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
                   ]]
         else:
             buttons = [[
