@@ -1693,7 +1693,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
        irl = f"https://t.me/Mr_Movies_file_bot?start=SyD-{user_id}"
        sydo = await get_shortlink(irl)
        buttons = [[
-           InlineKeyboardButton('💫 RᴇꜰᴇR 💫', url=f'https://t.me/Mr_Movies_file_bot?start=SyD-{user_id}')
+           InlineKeyboardButton('💫 RᴇꜰᴇR 💫', url=sydo)
        ],[
            InlineKeyboardButton('⋞ ʙΔᴄᴋ', callback_data='other'),
             InlineKeyboardButton('8 / 8', callback_data='pagesn1'),
@@ -1708,7 +1708,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
            media=InputMediaPhoto(random.choice(PICS))
        )
        await query.message.edit_text(
-           text=script.REFER_TXT.format(REFERAL_PREMEIUM_TIME, temp.U_NAME, sydo, REFERAL_COUNT),
+           text=script.REFER_TXT.format(REFERAL_PREMEIUM_TIME, sydo, REFERAL_COUNT),
            reply_markup=reply_markup,
            parse_mode=enums.ParseMode.HTML
        )
