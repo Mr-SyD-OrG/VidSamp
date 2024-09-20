@@ -30,7 +30,7 @@ CODE = (environ.get('CODE', 'https://graph.org/file/64afb8fff79e1b3d17066.jpg'))
 
 #stream link shortner
 STREAM_SITE = (environ.get('STREAM_SITE', 'cuty.io'))
-STREAM_API = (environ.get('STREAM_API', 'b544b38b14b065b405ad7873cd783165c9a998fb'))
+STREAM_API = (environ.get('STREAM_API', '6485ffdd417b749dd0e54303462e5be992581c47'))
 STREAMHTO = (environ.get('STREAMHTO', 'https://t.me/GetTGLinks/69'))
 
 PREMIUM_AND_REFERAL_MODE = bool(environ.get('PREMIUM_AND_REFERAL_MODE', True)) # Set Ture Or False
