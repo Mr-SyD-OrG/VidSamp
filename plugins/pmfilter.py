@@ -1418,7 +1418,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
                  InlineKeyboardButton('Jᴏɪɴ ᴄʜᴀɴɴᴇL', url=link.invite_link),
                  InlineKeyboardButton("Vɪᴇᴡ ꜱᴛᴀᴛᴜS", url=f"{query.message.link}")
                ],[
-                 InlineKeyboardButton("🔍 ꜱᴇᴀʀᴄʜ ʜᴇʀᴇ 🔎", url="https://t.me/MoviesLinkSearchBot")
+                 InlineKeyboardButton("🔍 ꜱᴇᴀʀᴄʜ ʜᴇʀᴇ 🔎", url="https://t.me/mr_Movie_file_Bot")
                ]]
         if query.from_user.id in ADMINS:
             user = await client.get_users(from_user)
@@ -1875,7 +1875,8 @@ async def cb_handler(client: Client, query: CallbackQuery):
             InlineKeyboardButton('🎐 Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ 🎐', url='https://t.me/Bot_cracker')
         ],[
             InlineKeyboardButton('🔍 Gʀᴏᴜᴘ¹', url='https://t.me/+DqCTrhaymr9mYWZl'),
-            InlineKeyboardButton('Gʀᴏᴜᴘ² 🔎', url='https://t.me/+I0u1R3m5zZAzYzBl')
+            InlineKeyboardButton('Gʀᴏᴜᴘ² ', url='https://t.me/+I0u1R3m5zZAzYzBl'),
+            InlineKeyboardButton('Gʀᴏᴜᴘ³ 🔎', url='https://t.me/+kiyp-7aRHDE5YjY1')
         ],[
             InlineKeyboardButton('∞ Mᴏᴠɪᴇꜱ ∞', url='https://t.me/Mod_Moviez_X')
         ],[
