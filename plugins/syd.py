@@ -37,15 +37,12 @@ async def auto(bot, message):
                 # Save the media file
                 try:
                     aynav, vnay = await save_file(media)
-                    
-                    # Handle the result of the save operation
                     if aynav:
-                        SyD = await message.reply("File successfully indexed and saved.")
+                        logger.info("File successfully indexed and saved.")
                     elif vnay == 0:
-                        SyD = await message.reply("Duplicate file was skipped.")
+                        logger.info("Duplicate file was skipped.")
                     elif vnay == 2:
-                        SyD = await message.reply("Error occurred while saving the file.")
-                    await SyD.delete()
+                        logger.error("Error(index) occurred")
                     
                 except Exception as e:
                     logger.exception("Failed to save file: %s", e)
