@@ -40,11 +40,13 @@ async def auto(bot, message):
                     
                     # Handle the result of the save operation
                     if aynav:
-                        await message.reply("File successfully indexed and saved.")
+                        SyD = await message.reply("File successfully indexed and saved.")
                     elif vnay == 0:
-                        await message.reply("Duplicate file was skipped.")
+                        SyD = await message.reply("Duplicate file was skipped.")
                     elif vnay == 2:
-                        await message.reply("Error occurred while saving the file.")
+                        SyD = await message.reply("Error occurred while saving the file.")
+                    await SyD.delete()
+                    
                 except Exception as e:
                     logger.exception("Failed to save file: %s", e)
                     await message.reply("An error occurred while processing the file.")
