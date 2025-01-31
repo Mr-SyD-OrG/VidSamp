@@ -38,7 +38,7 @@ SECOND_SHORTENER = {}
 SMART_OPEN = '“'
 SMART_CLOSE = '”'
 START_CHAR = ('\'', '"', SMART_OPEN)
-
+SYD_CHANNEL = -1002042969565
 # temp db for banned 
 class temp(object):
     BANNED_USERS = []
@@ -55,6 +55,22 @@ class temp(object):
     IMDB_CAP = {}
 
 
+async def is_subscribed(bot, query=None, userid=None):
+    try:
+        if userid == None and query != None:
+            user = await bot.get_chat_member(SYD_CHANNEL, query.from_user.id)
+        else:
+            user = await bot.get_chat_member(SYD_CHANNEL, int(userid))
+    except UserNotParticipant:
+        pass
+    except Exception as e:
+        logger.exception(e)
+    else:
+        if user.status != enums.ChatMemberStatus.BANNED:
+            return True
+
+    return False
+    
 async def is_req_subscribed(bot, query):
     if await db.find_join_req(query.from_user.id):
         return True
