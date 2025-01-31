@@ -117,7 +117,7 @@ async def start(client, message):
             parse_mode=enums.ParseMode.MARKDOWN
             )
         return
-    except exception as e:
+    except Exception as e:
             logger.error(f"Make {e} l")
             return
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
