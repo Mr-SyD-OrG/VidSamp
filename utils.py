@@ -38,7 +38,7 @@ SECOND_SHORTENER = {}
 SMART_OPEN = '“'
 SMART_CLOSE = '”'
 START_CHAR = ('\'', '"', SMART_OPEN)
-SYD_CHANNEL = -1002042969565
+SYD_CHANNEL = -1001541018556
 # temp db for banned 
 class temp(object):
     BANNED_USERS = []
