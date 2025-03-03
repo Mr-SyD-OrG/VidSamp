@@ -99,7 +99,7 @@ async def start(client, message):
        
 
         if not await is_subscribed(client, message):
-            btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Mod_Moviez_X")])
+            btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Bot_Cracker")])
          
         if message.command[1] != "subscribe":
             try:
