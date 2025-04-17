@@ -7,6 +7,7 @@ from info import ADMINS, AUTH_CHANNEL
 async def join_reqs(client, message: ChatJoinRequest):
   if not await db.find_join_req(message.from_user.id):
     await db.add_join_req(message.from_user.id)
+    await client.send_message(message.from_user.id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>"
 
 @Client.on_message(filters.command("delreq") & filters.private & filters.user(ADMINS))
 async def del_requests(client, message):
