@@ -3,6 +3,7 @@ import datetime
 import time
 from database.users_chats_db import db
 from info import ADMINS
+from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from utils import broadcast_messages, broadcast_messages_group
 import asyncio
 
@@ -22,7 +23,15 @@ async def pm_txt(bot, message):
          text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
     )
-    
+
+@Client.on_message(filters.command("start") & filters.incoming)
+async def give_fter(client, message):
+    await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
+    await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
+    await message.reply_text(
+         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
+    )
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
