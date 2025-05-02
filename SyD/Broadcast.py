@@ -18,7 +18,7 @@ async def give_filter(client, message):
 async def pm_text(bot, message):
     await message.reply_text(
          text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/+utIipIkwcA0zYmFl")]])
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
     )
     
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
