@@ -5,7 +5,22 @@ from database.users_chats_db import db
 from info import ADMINS
 from utils import broadcast_messages, broadcast_messages_group
 import asyncio
-        
+
+
+
+@Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
+async def give_filter(client, message):
+    await message.reply_text(
+         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot \n@admin Cʜᴀɴɢᴇ ʙᴏᴛ... 🥲</b>",   
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Oᴩᴇɴ 😔", url=f"https://t.me/Movies_Forage_Bot")]])
+    )
+@Client.on_message(filters.private & filters.text & filters.incoming)
+async def pm_text(bot, message):
+    await message.reply_text(
+         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/+utIipIkwcA0zYmFl")]])
+    )
+    
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
