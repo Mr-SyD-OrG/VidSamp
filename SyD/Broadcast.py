@@ -9,13 +9,13 @@ import asyncio
 
 
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
-async def give_filter(client, message):
+async def give_fter(client, message):
     await message.reply_text(
          text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot \n@admin Cʜᴀɴɢᴇ ʙᴏᴛ... 🥲</b>",   
          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Oᴩᴇɴ 😔", url=f"https://t.me/Movies_Forage_Bot")]])
     )
 @Client.on_message(filters.private & filters.text & filters.incoming)
-async def pm_text(bot, message):
+async def pm_txt(bot, message):
     await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
     await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
     await message.reply_text(
