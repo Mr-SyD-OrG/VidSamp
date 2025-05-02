@@ -16,6 +16,7 @@ async def give_filter(client, message):
     )
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
+    await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
     await message.reply_text(
          text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ ", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
