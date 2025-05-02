@@ -2,7 +2,7 @@ from pyrogram import Client, filters
 import datetime
 import time
 from database.users_chats_db import db
-from info import ADMINS
+from info import ADMINS, LOG_CHANNEL
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, CallbackQuery
 from utils import broadcast_messages, broadcast_messages_group
 import asyncio
@@ -17,6 +17,12 @@ async def give_fter(client, message):
     )
 @Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_txt(bot, message):
+    content = message.text
+    if content.startswith("/"): return
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
+
     await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
     await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
     await message.reply_text(
@@ -25,7 +31,10 @@ async def pm_txt(bot, message):
     )
 
 @Client.on_message(filters.command("start") & filters.incoming)
-async def give_fter(client, message):
+async def give_fr(client, message):
+    if not await db.is_user_exist(message.from_user.id):
+        await db.add_user(message.from_user.id, message.from_user.first_name)
+        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
     await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
     await message.reply_text(
