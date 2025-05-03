@@ -9,38 +9,6 @@ import asyncio
 
 
 
-@Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
-async def give_fter(client, message):
-    await message.reply_text(
-         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot \n@admin Cʜᴀɴɢᴇ ʙᴏᴛ... 🥲</b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Oᴩᴇɴ 😔", url=f"https://t.me/Movies_Forage_Bot")]])
-    )
-@Client.on_message(filters.private & filters.text & filters.incoming)
-async def pm_txt(bot, message):
-    content = message.text
-    if content.startswith("/"): return
-    if not await db.is_user_exist(message.from_user.id):
-        await db.add_user(message.from_user.id, message.from_user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
-
-    await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
-    await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
-    await message.reply_text(
-         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
-    )
-
-@Client.on_message(filters.command("start") & filters.incoming)
-async def give_fr(client, message):
-    if not await db.is_user_exist(message.from_user.id):
-        await db.add_user(message.from_user.id, message.from_user.first_name)
-        await bot.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
-    await message.reply_text("Bᴏᴛ ꜱᴛᴏᴩᴩᴇᴅ! 🙃")
-    await message.reply_text("<i>Dɪꜱᴄʟᴀɪᴍᴇʀ!: ᴛʜɪꜱ ʙᴏᴛ ᴅᴏ ɴᴏᴛ ᴏᴡɴ ᴀɴʏ ꜰɪʟᴇꜱ.</i>")
-    await message.reply_text(
-         text="<b>Pʟᴇᴀꜱᴇ ꜱᴇɴᴅ ʜᴇʀᴇ,🥹 @Movies_Forage_Bot</b>",   
-         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
-    )
 @Client.on_message(filters.command("broadcast") & filters.user(ADMINS) & filters.reply)
 # https://t.me/GetTGLink/4178
 async def verupikkals(bot, message):
