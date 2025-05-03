@@ -37,7 +37,7 @@ from plugins import web_server
 
 import asyncio
 from pyrogram import idle
-from lazybot import LazyPrincessBot
+from lazybot import LazyPrincessBot, SyDBot
 from util.keepalive import ping_server
 from lazybot.clients import initialize_clients
 
@@ -45,6 +45,7 @@ from lazybot.clients import initialize_clients
 ppath = "plugins/*.py"
 files = glob.glob(ppath)
 LazyPrincessBot.start()
+SyDBot.start()
 loop = asyncio.get_event_loop()
 
 
@@ -71,7 +72,7 @@ async def Lazy_start():
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
-    me = await LazyPrincessBot.get_me()
+    me = await SyDBot.get_me()
     temp.ME = me.id
     temp.U_NAME = me.username
     temp.B_NAME = me.first_name
