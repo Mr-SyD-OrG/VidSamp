@@ -2345,11 +2345,11 @@ async def auto_filter(client, msg, spoll=False):
 
         # Create buttons for files
         for file in files:
-            filedetails = await get_file_details(file.file_id)  # Get file details for the file_id
-            if not filedetails:
-                continue  # Skip if file details are not found
+            #filedetails = await get_file_details(file.file_id)  # Get file details for the file_id
+            #if not filedetails:
+               # continue  # Skip if file details are not found
             
-            file_name = encode_file_name(filedetails[0].file_name)  # Get file name
+            file_name = encode_file_name(file.file_name)  # Get file name
 
             # Construct the button with filtered file name
             btn.append([
