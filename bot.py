@@ -71,8 +71,18 @@ async def Lazy_start():
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
-    await SyDBot.start()
-    me = await SyDBot.get_me()
+    syd = Client(
+            "SyD",
+            api_hash=API_HASH,
+            api_id=API_ID,
+            plugins={
+                "root": "SyD"
+            },
+            workers=50,
+            bot_token=BT_TOKEN
+    )
+    await syd.start()
+    me = await syd.get_me()
     temp.ME = me.id
     temp.U_NAME = me.username
     temp.B_NAME = me.first_name
