@@ -2340,7 +2340,7 @@ async def auto_filter(client, msg, spoll=False):
     FRESH[key] = search
     temp.GETALL[key] = files
     temp.SHORT[message.from_user.id] = message.chat.id
-        if settings["button"]:
+    if settings["button"]:
         btn = []
 
         # Create buttons for files
@@ -2349,13 +2349,13 @@ async def auto_filter(client, msg, spoll=False):
             #if not filedetails:
                # continue  # Skip if file details are not found
             
-            file_name = encode_file_name(file.file_name)  # Get file name
+            fe_name = encode_file_name(file.file_name)  # Get file name
 
             # Construct the button with filtered file name
             btn.append([
                 InlineKeyboardButton(
                     text=f"📁 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file_name.split()))}",
-                    url=f"https://telegram.me/{temp.U_NAME}?start=mrsyd_{file_name}"
+                    url=f"https://telegram.me/{temp.U_NAME}?start=mrsyd_{fe_name}"
                 ),
             ])
         btn.insert(0, 
