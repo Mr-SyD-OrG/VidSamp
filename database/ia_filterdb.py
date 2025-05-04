@@ -169,6 +169,12 @@ async def get_file_details_by_name(file_name: str):
     filedetails = await cursor.to_list(length=1)
     return filedetails
 
+async def get_file_details_by_name_and_size(file_name: str, file_size: int):
+    filter = {'file_name': file_name, 'file_size': file_size}
+    cursor = Media.find(filter)
+    filedetails = await cursor.to_list(length=1)
+    return filedetails[0].file_id if filedetails else None
+
 async def get_file_details(query):
     filter = {'file_id': query}
     cursor = Media.find(filter)
