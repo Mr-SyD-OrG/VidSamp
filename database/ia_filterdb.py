@@ -23,6 +23,7 @@ class Media(Document):
     file_id = fields.StrField(attribute='_id')
     file_ref = fields.StrField(allow_none=True)
     file_name = fields.StrField(required=True)
+    real_name = fields.StrField(required=True)
     file_size = fields.IntField(required=True)
     file_type = fields.StrField(allow_none=True)
     mime_type = fields.StrField(allow_none=True)
@@ -44,6 +45,7 @@ async def save_file(media):
             file_id=file_id,
             file_ref=file_ref,
             file_name=file_name,
+            real_name=media.file_name,
             file_size=media.file_size,
             file_type=media.file_type,
             mime_type=media.mime_type,
@@ -160,6 +162,12 @@ async def get_bad_files(query, file_type=None, filter=False):
     files = await cursor.to_list(length=total_results)
 
     return files, total_results
+
+async def get_file_details_by_name(file_name: str):
+    filter = {'real_name': file_name}
+    cursor = Media.find(filter)
+    filedetails = await cursor.to_list(length=1)
+    return filedetails
 
 async def get_file_details(query):
     filter = {'file_id': query}
