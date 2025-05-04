@@ -11,7 +11,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import *
 from urllib.parse import quote_plus
-from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files, get_file_details_by_name
+from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
 from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user
 from info import CHANNELS, ADMINS, AUTH_CHANNEL, LOG_CHANNEL, PICS, BATCH_FILE_CAPTION, CUSTOM_FILE_CAPTION, PROTECT_CONTENT, CHNL_LNK, GRP_LNK, REQST_CHANNEL, SUPPORT_CHAT_ID, SUPPORT_CHAT, MAX_B_TN, VERIFY, HOWTOVERIFY, SHORTLINK_API, SHORTLINK_URL, TUTORIAL, IS_TUTORIAL, PREMIUM_USER, PICS, SUBSCRIPTION, REFERAL_PREMEIUM_TIME, REFERAL_COUNT, PREMIUM_AND_REFERAL_MODE
 from utils import get_settings, get_size, is_req_subscribed, is_subscribed, save_group_settings, temp, verify_user, check_token, check_verification, get_token, get_shortlink, get_tutorial, decode_file_name
@@ -197,20 +197,7 @@ async def start(client, message):
                   parse_mode=enums.ParseMode.HTML
              )
              return 
-    if data.split("-", 1)[0] == "mrsyd":
-        file_name = decode_file_name(data.split("_", 1)[1])
-        filedetails = await get_file_details_by_name(file_name)
-        if not filedetails:
-            await message.reply_text("File not found.")
-        else:
-            file = filedetails[0]
-            await client.send_cached_media(
-                chat_id=message.chat.id,
-                file_id=file.file_id,
-                caption=file.caption or "",
-                protect_content=True
-            )
-
+    
 
     try:
         pre, file_id = data.split('_', 1)
