@@ -197,6 +197,21 @@ async def start(client, message):
                   parse_mode=enums.ParseMode.HTML
              )
              return 
+    if data.split("-", 1)[0] == "mrsyd":
+        file_name = decode_file_name(data.split("_", 1)[1])
+        filedetails = await get_file_details_by_name(file_name)
+        if not filedetails:
+            await message.reply_text("File not found.")
+        else:
+            file = filedetails[0]
+            await client.send_cached_media(
+                chat_id=message.chat.id,
+                file_id=file.file_id,
+                caption=file.caption or "",
+                protect_content=True
+            )
+
+
     try:
         pre, file_id = data.split('_', 1)
     except:
