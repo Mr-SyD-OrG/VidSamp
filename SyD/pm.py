@@ -16,7 +16,7 @@ from pyrogram import Client, filters, enums
 from pyrogram.errors import FloodWait, UserIsBlocked, MessageNotModified, PeerIdInvalid
 from utils import get_size, is_req_subscribed, get_poster, search_gagala, temp, get_settings, save_group_settings, get_shortlink, get_tutorial, send_all, get_cap, encode_file_name
 from database.users_chats_db import db
-from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files
+from database.ia_filterdb import Media, get_file_details, get_search_results, get_bad_files, get_file_details_by_name_and_size
 from database.filters_mdb import (
     del_all,
     find_filter,
@@ -2348,12 +2348,12 @@ async def auto_filter(client, msg, spoll=False):
             #filedetails = await get_file_details(file.file_id)  # Get file details for the file_id
             #if not filedetails:
                # continue  # Skip if file details are not found
-            
-            fe_name = encode_file_name(file.file_name)  # Get file name
+            file_nam = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
+            fe_name = get_file_details_by_name_and_size(file_nam, file.file_size)  # Get file name
 
             # Construct the button with filtered file name
             btn.append([
-                InlineKeyboardButton(f"📁 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file.file_name.split()))}", url=f"https://telegram.me/{temp.U_NAME}?start=mrsyd_{fe_name}")
+                InlineKeyboardButton(f"📁 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file.file_name.split()))}", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fe_name}")
             ])
         btn.insert(0, 
             [
