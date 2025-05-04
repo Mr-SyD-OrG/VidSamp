@@ -82,7 +82,7 @@ async def Lazy_start():
             bot_token=BT_TOKEN
     )
     await syd.start()
-    me = await syd.get_me()
+    me = await LazyPrincessBot.get_me()
     temp.ME = me.id
     temp.U_NAME = me.username
     temp.B_NAME = me.first_name
