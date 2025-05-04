@@ -55,6 +55,17 @@ class temp(object):
     IMDB_CAP = {}
 
 
+import base64
+
+def encode_file_name(file_name: str) -> str:
+    encoded = base64.urlsafe_b64encode(file_name.encode()).decode()
+    return encoded.rstrip("=")  # Telegram may have issues with '=' padding
+
+def decode_file_name(encoded_str: str) -> str:
+    padding = '=' * (-len(encoded_str) % 4)  # Fix padding
+    return base64.urlsafe_b64decode(encoded_str + padding).decode()
+
+
 async def is_subscribed(bot, query=None, userid=None):
     try:
         if userid == None and query != None:
