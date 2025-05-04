@@ -2349,7 +2349,7 @@ async def auto_filter(client, msg, spoll=False):
             #if not filedetails:
                # continue  # Skip if file details are not found
             file_nam = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
-            fe_name = get_file_details_by_name_and_size(file_nam, file.file_size)  # Get file name
+            fe_name = await get_file_details_by_name_and_size(file_nam, file.file_size)  # Get file name
 
             # Construct the button with filtered file name
             btn.append([
