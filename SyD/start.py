@@ -25,7 +25,7 @@ TIMEZONE = "Asia/Kolkata"
 BATCH_FILES = {}
 
 @Client.on_message(filters.command("start") & filters.incoming)
-async def start(client, message):
+async def strt(client, message):
     if message.chat.type in [enums.ChatType.GROUP, enums.ChatType.SUPERGROUP]:
         buttons = [[
                     InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://t.me/Mr_MovSearch_Bot?startgroup=true')
