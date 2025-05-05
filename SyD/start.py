@@ -61,9 +61,6 @@ async def start(client, message):
         await m.edit_text("Dᴏɴᴛ ꜰᴏʀɢᴇᴛ ᴛᴏ ꜱᴜᴩᴩᴏʀᴛ ᴜꜱ! @BOT_CRAckers 🍋")
         await asyncio.sleep(1.0)
         await m.delete()        
-        m=await message.reply_sticker("CAACAgQAAxkBAAEDWlxmP3-XAxyd2WfZcINd1AL4_xM4kwACFxIAArzT-FOmYU0gLeJu7x4E") 
-        await asyncio.sleep(1)
-        await m.delete()
         await message.reply_photo(
             photo=random.choice(PICS),
             caption=script.START_TXT.format(message.from_user.mention, temp.B_NAME),
@@ -118,16 +115,12 @@ async def start(client, message):
         buttons = [[
                     InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
                 ],[
-                    InlineKeyboardButton('⌬ ᴇΔʀɴ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
                     InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
                 ],[
-                    InlineKeyboardButton('⇱  ᴄ0ᴍᴍᴀɴᴅꜱ  ⇲', callback_data='help'),
                     InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
-                ],[
-                    InlineKeyboardButton("◎ Sꪊʙꜱᴄʀɪᴩᴛɪꪮɴ - Fяᴇᴇ Δɴ' Pᴀɪᴅ ◎", callback_data="premium_info")
                   ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠɪᴇꜱ ꜰɪʟᴇ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
+        m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠꜱᴇᴀʀᴄʜ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
         await asyncio.sleep(0.4)
         await m.edit_text("⚡")
         await asyncio.sleep(0.5)
@@ -135,14 +128,14 @@ async def start(client, message):
         await asyncio.sleep(0.4)
         await m.edit_text("Dᴏɴᴛ ꜰᴏʀɢᴇᴛ ᴛᴏ ꜱᴜᴩᴩᴏʀᴛ ᴜꜱ! @BOT_CRAckers 🍋")
         await asyncio.sleep(1.0)
-        await m.delete()
+        await m.delete()        
         await message.reply_photo(
             photo=random.choice(PICS),
-            caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
+            caption=script.START_TXT.format(message.from_user.mention, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await message.reply_text("Sᴇɴᴅ Nᴀᴍᴇ....!")
+        await message.reply_text("Sᴇɴᴅ Nᴀᴍᴇ...!")
         return
         
     
