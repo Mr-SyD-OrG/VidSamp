@@ -4,9 +4,9 @@ class script(object):
 I Cᴀɴ Pʀᴏᴠɪᴅᴇ Mᴏᴠɪᴇ Fᴏʀ Yᴏᴜ Jᴜsᴛ Tʏᴩᴇ Aɴᴅ Sᴇɴᴅ Tʜᴇ Mᴏᴠɪᴇ Aɴᴅ Yᴇᴀʀ ✨
 <blockquote>Oɴᴇ Oꜰ Tʜᴇ Wᴏʀʟᴅꜱ Cᴏᴏʟᴇꜱᴛ, Bɪɢɢᴇꜱᴛ Aɴᴅ Fɪɴᴇꜱᴛ DᴀᴛᴀBᴀꜱᴇ</blockquote></b>"""
     
-    START_TXT = """<b>ʜᴇʏ {}🤘, {}\n\nɪ Δᴍ ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ 💬 ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ ❄️.\n\n<blockquote> ᴍᴀɪɴᴛΔɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockqoute></b>"""
+    START_TXT = """<b>ʜᴇʏ {}🤘, {}\n\nɪ Δᴍ ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ 💬 ᴡɪᴛʜ ꜰʀɪᴇɴᴅʟʏ ꜰᴇᴀᴛᴜʀᴇꜱ ❄️.\n\n<blockquote>ᴍᴀɪɴᴛΔɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockqoute></b>"""
 
-    GSTART_TXT = """<b>ʜᴇʏ {}🫶,\n\nɪ Δᴍ ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ 💭 ᴡɪᴛʜ ᴘʀᴇᴍɪᴜᴍ ꜰᴇᴀᴛᴜʀᴇꜱ ❄️.\n\n<blockqoute> ᴍᴀɪɴᴛΔɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockqoute></b>"""
+    GSTART_TXT = """<b>ʜᴇʏ {}🫶,\n\nɪ Δᴍ ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ 💭 ᴡɪᴛʜ ꜰʀɪᴇɴᴅʟʏ ꜰᴇᴀᴛᴜʀᴇꜱ ❄️.\n\n<blockqoute>ᴍᴀɪɴᴛΔɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockqoute></b>"""
     
     HELP_TXT = """<b>ʜᴇʏ {},
 ᴄʜᴏᴏꜱᴇ ᴛʜᴇ ᴄᴀᴛᴇɢᴏʀʏ ᴏꜰ ᴄᴏᴍᴍᴀɴᴅ ʏᴏᴜ ᴡᴀɴᴛ ᴄᴜʀʀᴇɴᴛʟʏ 💥.</b>"""
