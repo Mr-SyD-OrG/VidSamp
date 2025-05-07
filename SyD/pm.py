@@ -96,9 +96,9 @@ async def start(client, message):
         buttons = [[
                     InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url='http://telegram.me/Mr_MovSearch_Bot?startgroup=true')
                 ],[
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
+                    InlineKeyboardButton('⚝       ᴜᴘᦔΔᴛꫀ𝘴       ⚝', callback_data='channels')
                 ],[
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
+                    InlineKeyboardButton('⊛        Δʙᴏᴜᴛ        ⊛', callback_data='about')
                   ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠꜱᴇᴀʀᴄʜ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
@@ -116,7 +116,7 @@ async def start(client, message):
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
-        await message.reply_text("Sᴇɴᴅ Nᴀᴍᴇ...!")
+        await message.reply_text("<b>Sᴇɴᴅ Nᴀᴍᴇ...!</b>")
         return
     
 @Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
