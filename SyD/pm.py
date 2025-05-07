@@ -2389,9 +2389,9 @@ async def auto_filter(client, msg, spoll=False):
             #filedetails = await get_file_details(file.file_id)  # Get file details for the file_id
             #if not filedetails:
                # continue  # Skip if file details are not found
-            file_nam = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
-            fe_name = await get_file_details_by_name_and_size(file_nam, file.file_size)  # Get file name
-
+            #file_nam = re.sub(r"(_|\-|\.|\+)", " ", str(file.file_name))
+           # fe_name = await get_file_details_by_name_and_size(file_nam, file.file_size)  # Get file name
+            fe_name = file.file_id
             # Construct the button with filtered file name
             btn.append([
                 InlineKeyboardButton(f"📁 {get_size(file.file_size)} ▷ {' '.join(filter(lambda x: not x.startswith('[') and not x.startswith('@') and not x.startswith('www.'), file.file_name.split()))}", url=f"https://telegram.me/{temp.U_NAME}?start=files_{fe_name}")
@@ -2409,7 +2409,7 @@ async def auto_filter(client, msg, spoll=False):
             ]
         )
         btn.insert(0, [
-            InlineKeyboardButton("𓅪 ꜱᴇɴᴅ ᴀʟʟ ꜰɪʟᴇꜱ 𓅪", callback_data=f"sendfiles#{key}")
+            InlineKeyboardButton("𓅪 ꜱᴇɴᴅ ᴀʟʟ ꜰɪʟᴇꜱ 𓅪", url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles#{key}")
         ])
 
     else:
