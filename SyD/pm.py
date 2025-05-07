@@ -2409,7 +2409,7 @@ async def auto_filter(client, msg, spoll=False):
             ]
         )
         btn.insert(0, [
-            InlineKeyboardButton("𓅪 ꜱᴇɴᴅ ᴀʟʟ ꜰɪʟᴇꜱ 𓅪", url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles#{key}")
+            InlineKeyboardButton("𓅪 ꜱᴇɴᴅ ᴀʟʟ ꜰɪʟᴇꜱ 𓅪", url=f"https://telegram.me/{temp.U_NAME}?start=sendfiles_{key}")
         ])
 
     else:
