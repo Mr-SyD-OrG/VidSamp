@@ -71,7 +71,7 @@ async def Lazy_start():
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
-    syd = Client(
+    sydxyz = Client(
             "MrSyD",
             api_hash=API_HASH,
             api_id=API_ID,
@@ -81,7 +81,6 @@ async def Lazy_start():
             workers=50,
             bot_token=TOKEN
     )
-    await syd.start()
     syd = Client(
             "SyD",
             api_hash=API_HASH,
@@ -92,6 +91,7 @@ async def Lazy_start():
             workers=50,
             bot_token=BT_TOKEN
     )
+    await sydxyz.start()
     await syd.start()
     me = await LazyPrincessBot.get_me()
     temp.ME = me.id
