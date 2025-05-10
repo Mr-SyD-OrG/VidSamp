@@ -72,6 +72,17 @@ async def Lazy_start():
     temp.BANNED_CHATS = b_chats
     await Media.ensure_indexes()
     syd = Client(
+            "MrSyD",
+            api_hash=API_HASH,
+            api_id=API_ID,
+            plugins={
+                "root": "MrSyD"
+            },
+            workers=50,
+            bot_token=TOKEN
+    )
+    await syd.start()
+    syd = Client(
             "SyD",
             api_hash=API_HASH,
             api_id=API_ID,
