@@ -87,4 +87,13 @@ async def start(client, message):
              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CONTINUE GETTING...", url=f"https://t.me/movies_file_x_bot")]])
         )
 
+@Client.on_message(filters.private & filters.text & filters.incoming)
+async def pm_text(bot, message):
+    if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
+    await message.reply_text(
+         text="<b>OUR BOTS:\n• @MovSearch_X1_Bot\n• @MovSearch_X2_Bot\n• @Movies_Forage_Bot\n\n<i>One Of The Bot Maybe Down Use Others</i></b>",   
+         reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
+    )
+    return
+
 
