@@ -77,14 +77,14 @@ async def start(client, message):
         await client.send_message(LOG_CHANNEL, script.LOG_TEXT_P.format(message.from_user.id, message.from_user.mention))
     if len(message.command) != 2:
         await message.reply_text(
-             text="<b>OUR BOTS:\n@MovSearch_X1_Bot\n@MovSearch_X2_Bot</b>",   
+             text="<b>OUR BOTS:\n• @MovSearch_X1_Bot\n• @MovSearch_X2_Bot\n• @Movies_Forage_Bot\n\n<i>One Of The Bot Maybe Down Use Others</i></b>",   
              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
         )
         return
     if len(message.command) == 2:
         await message.reply_text(
-             text="<b>Sᴇɴᴅ Mᴏᴠɪᴇ Nᴀᴍᴇ Hᴇʀᴇ..!😊 \n@Mr_MovSearch_Bot</b>",   
-             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/+5n7vViwKXJJiMjhl")]])
+             text="<b>Tʜᴀɴᴋꜱ ᴜꜱᴇ ᴛʜᴀᴛ ʙᴏᴛ ɴᴏᴡ..! \n• @Movies_file_x_bot</b>",   
+             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CONTINUE GETTING...", url=f"https://t.me/movies_file_x_bot")]])
         )
 
 
