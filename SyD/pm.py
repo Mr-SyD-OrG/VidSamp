@@ -92,19 +92,19 @@ async def start(client, message):
     if not await db.is_user_exist(message.from_user.id):
         await message.reply_text(
              text="<b>Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ꜱᴛᴀʀᴛᴇᴅ ᴏᴜʀ ᴍᴀɪɴ ʙᴏᴛ ᴩʟᴇᴀꜱᴇ ꜱᴛᴀʀᴛ ɪᴛ..! \nJᴜꜱᴛ ᴄʟɪᴄᴋ ᴏɴ ꜱᴛᴀʀᴛ ɪɴ @MovSearch_X_Bot ᴛᴏ ɢᴇᴛ ꜰɪʟᴇ...!</b>",   
-             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url="https://t.me/MovSearch_X_Bot")]])
+             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url="https://t.me/MovSearch_X_Bot?start=goon")]])
         )
         return
     if len(message.command) != 2:
         buttons = [[
-                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url='http://telegram.me/Mr_MovSearch_Bot?startgroup=true')
+                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url='http://telegram.me/MovSearch_X1_Bot?startgroup=true')
                 ],[
                     InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
                 ],[
                     InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
                   ]]
         reply_markup = InlineKeyboardMarkup(buttons)
-        m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠꜱᴇᴀʀᴄʜ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
+        m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍᴏᴠꜱᴇᴀʀᴄʜ x¹ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
         await asyncio.sleep(0.4)
         await m.edit_text("⚡")
         await asyncio.sleep(0.5)
