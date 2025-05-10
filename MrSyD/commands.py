@@ -95,6 +95,7 @@ async def start(client, message):
 
 @Client.on_message(filters.text & filters.incoming)
 async def pm_text(bot, message):
+    content = message.text
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
     await message.reply_text(
          text="<b>OUR BOTS:\n\n• @MovSearch_X1_Bot\n• @MovSearch_X2_Bot\n• @Movies_Forage_Bot\n\n<i>One Of The Bot Maybe Down Use Others</i></b>",   
