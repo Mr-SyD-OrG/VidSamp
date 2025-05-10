@@ -41,7 +41,7 @@ async def start(client, message):
         return 
     if not await db.is_user_exist(message.from_user.id):
         await message.reply_text(
-             text="<b>Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ꜱᴛᴀʀᴛᴇᴅ ᴏᴜʀ ᴍᴀɪɴ ʙᴏᴛ ᴩʟᴇᴀꜱᴇ ꜱᴛᴀʀᴛ ɪᴛ..! \nJᴜꜱᴛ ᴄʟɪᴄᴋ ᴏɴ ꜱᴛᴀʀᴛ ɪɴ @MovSearch_X_Bot ᴛᴏ ɢᴇᴛ ꜰɪʟᴇ...!</b>",   
+             text="<b>Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ꜱᴛᴀʀᴛᴇᴅ ᴏᴜʀ ᴍᴀɪɴ ʙᴏᴛ ᴩʟᴇᴀꜱᴇ ꜱᴛᴀʀᴛ ɪᴛ..! \nJᴜꜱᴛ ᴄʟɪᴄᴋ ᴏɴ ꜱᴛᴀʀᴛ ɪɴ <a href="https://t.me/MovSearch_X_Bot?start=goon">@MovSearch_X_Bot</a> ᴛᴏ ɢᴇᴛ ꜰɪʟᴇ...!</b>",   
              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url="https://t.me/MovSearch_X_Bot?start=goon")]])
         )
         return
