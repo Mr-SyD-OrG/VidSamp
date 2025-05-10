@@ -93,7 +93,7 @@ async def start(client, message):
              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("CONTINUE GETTING...", url=f"https://t.me/MovSearch_X1_bot")]])
         )
 
-@Client.on_message(filters.private & filters.text & filters.incoming)
+@Client.on_message(filters.text & filters.incoming)
 async def pm_text(bot, message):
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
     await message.reply_text(
