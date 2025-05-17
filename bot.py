@@ -70,29 +70,7 @@ async def Lazy_start():
     b_users, b_chats = await db.get_banned()
     temp.BANNED_USERS = b_users
     temp.BANNED_CHATS = b_chats
-   # await Media.ensure_indexes()
-  #  sydxyz = Client(
-            #"MrSyD",
-         #   api_hash=API_HASH,
-         #   api_id=API_ID,
-         #   plugins={
-          #      "root": "MrSyD"
-       #     },
-         #   workers=50,
-           # bot_token=TOKEN
-  #  )
-    #syd = Client(
-           # "SyD",
-            #api_hash=API_HASH,
-         #   api_id=API_ID,
-          #  plugins={
-             #   "root": "SyD"
-          #  },
-          #  workers=50,
-           # bot_token=BT_TOKEN
-   # )
-    #await sydxyz.start()
-    #await syd.start()
+
     me = await LazyPrincessBot.get_me()
     temp.ME = me.id
     temp.U_NAME = me.username
