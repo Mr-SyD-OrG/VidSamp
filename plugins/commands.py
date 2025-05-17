@@ -23,7 +23,7 @@ import base64
 logger = logging.getLogger(__name__)
 
 TIMEZONE = "Asia/Kolkata"
-BATCH_FILES = {}
+
 
 @Client.on_message(filters.command("start") & filters.incoming)
 async def start(client, message):
@@ -49,16 +49,16 @@ async def start(client, message):
       #  return
     if len(message.command) != 2:
         buttons = [[
-                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+                    InlineKeyboardButton('✲ Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Bot_cracker'),
+                    InlineKeyboardButton('Mᴏᴠɪᴇꜱ ✲', url='https://t.me/Mod_Moviez_X')
                 ],[
-                    InlineKeyboardButton('⌬ ᴇΔʀɴ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
+                    InlineKeyboardButton('⌬ ʜᴇʟᴩ ⌬', callback_data='help')
+                ], [
+                    InlineKeyboardButton('⚝ Oᴡɴᴇʀ', user_id=1733124290),
+                    InlineKeyboardButton('Bᴏᴛꜱ ⚝', url="https://t.me/Bot_Cracker/17")
                 ],[
-                    InlineKeyboardButton('⇱  ᴄ0ᴍᴍᴀɴᴅꜱ  ⇲', callback_data='help'),
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
-                ],[
-                    InlineKeyboardButton("◎ Sꪊʙꜱᴄʀɪᴩᴛɪꪮɴ - Fяᴇᴇ Δɴ' Pᴀɪᴅ ◎", callback_data="premium_info")
-                  ]]
+                    InlineKeyboardButton('◎ Gʀᴏᴜᴩ ◎', url='https://t.me/+5n7vViwKXJJiMjhl')
+                ]]
        
         m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠɪᴇꜱ ꜰɪʟᴇ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
         await asyncio.sleep(0.6)
@@ -112,16 +112,16 @@ async def start(client, message):
         
     if len(message.command) == 2 and message.command[1] in ["subscribe", "error", "okay", "help"]:
         buttons = [[
-                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+                    InlineKeyboardButton('✲ Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Bot_cracker'),
+                    InlineKeyboardButton('Mᴏᴠɪᴇꜱ ✲', url='https://t.me/Mod_Moviez_X')
                 ],[
-                    InlineKeyboardButton('⌬ ᴇΔʀɴ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
+                    InlineKeyboardButton('⌬ Hᴇʟᴩ ⌬', callback_data='help')
                 ],[
-                    InlineKeyboardButton('⇱  ᴄ0ᴍᴍᴀɴᴅꜱ  ⇲', callback_data='help'),
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
+                    InlineKeyboardButton('⚝ Oᴡɴᴇʀ', user_id=1733124290),
+                    InlineKeyboardButton('Bᴏᴛꜱ ⚝', url="https://t.me/Bot_Cracker/17")
                 ],[
-                    InlineKeyboardButton("◎ Sꪊʙꜱᴄʀɪᴩᴛɪꪮɴ - Fяᴇᴇ Δɴ' Pᴀɪᴅ ◎", callback_data="premium_info")
-                  ]]
+                    InlineKeyboardButton('◎ Gʀᴏᴜᴩ ◎', url='https://t.me/+5n7vViwKXJJiMjhl')
+                ]]
         m=await message.reply_text("<i>ᴡᴇʟᴄᴏᴍᴇ ᴛᴏ <b>ᴍʀ ᴍᴏᴠɪᴇꜱ ꜰɪʟᴇ ʙᴏᴛ</b>.\nʜᴏᴘᴇ ʏᴏᴜ'ʀᴇ ᴅᴏɪɴɢ ᴡᴇʟʟ...</i>")
         await asyncio.sleep(0.6)
         await m.delete()
