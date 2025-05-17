@@ -17,6 +17,8 @@ from database.connections_mdb import active_connection
 # from plugins.pm_filter import ENABLE_SHORTLINK
 import re, asyncio, os, sys
 import json
+from util.file_properties import get_name, get_hash, get_media_file_size
+
 import base64
 logger = logging.getLogger(__name__)
 
