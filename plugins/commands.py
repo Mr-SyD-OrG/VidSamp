@@ -46,7 +46,7 @@ async def start(client, message):
              text="<b>Yᴏᴜ ʜᴀᴠᴇɴ'ᴛ ꜱᴛᴀʀᴛᴇᴅ ᴏᴜʀ ᴍᴀɪɴ ʙᴏᴛ ᴩʟᴇᴀꜱᴇ ꜱᴛᴀʀᴛ ɪᴛ..! \nJᴜꜱᴛ ᴄʟɪᴄᴋ ᴏɴ ꜱᴛᴀʀᴛ ɪɴ <a href='https://t.me/MovSearch_X_Bot?start=goon'>@MovSearch_X_Bot</a> ᴛᴏ ɢᴇᴛ ꜰɪʟᴇ...!</b>",   
              reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Gᴇᴛ Fɪʟᴇ", url="https://t.me/MovSearch_X_Bot?start=goon")]])
         )
-        return
+      #  return
     if len(message.command) != 2:
         buttons = [[
                     InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
@@ -195,7 +195,7 @@ from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from urllib.parse import quote_plus
 
 @Client.on_message(filters.private & (filters.document | filters.video))
-async def link(client, message: Message):
+async def link(client, message):
     try:
         user_id = message.from_user.id
         username = message.from_user.mention
