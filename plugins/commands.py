@@ -131,63 +131,7 @@ async def start(client, message):
         )
         return
     data = message.command[1]
-    if data.split("-", 1)[0] == "SyD":
-        user_id = int(data.split("-", 1)[1])
-        syd = await referal_add_user(user_id, message.from_user.id)
-        if syd and PREMIUM_AND_REFERAL_MODE == True:
-            await message.reply(f"<i>Yσᴜ ʜᴀᴠᴇ ꜱᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙʏ ʙᴏᴛ ᴜꜱɪɴɢ ᴛʜᴇ <b>ʀᴇꜰʀʀᴇʟ ʟɪɴᴋ</b> ᴏꜰ ᴀ ᴜꜱᴇʀ \n\nSᴇɴᴅ /start Δɢᴀɪɴ To Uꜱᴇ Tʜᴇ Бᴏᴛ</i>")
-            num_referrals = await get_referal_users_count(user_id)
-            await client.send_message(chat_id = user_id, text = "<i>{} Sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴡɪᴛʜ ʏᴏᴜʀ ʀᴇꜰᴇʀʀᴇʟ ʟɪɴᴋ\n\nTᴏᴛᴀʟ Rᴇꜰᴇʀꜱ - {}/10</i>".format(message.from_user.mention, num_referrals))
-            if num_referrals == REFERAL_COUNT:
-                time = REFERAL_PREMEIUM_TIME       
-                seconds = await get_seconds(time)
-                if seconds > 0:
-                    expiry_time = datetime.datetime.now() + datetime.timedelta(seconds=seconds)
-                    user_data = {"id": user_id, "expiry_time": expiry_time} 
-                    await db.update_user(user_data)  # Use the update_user method to update or insert user data
-                    await delete_all_referal_users(user_id)
-                    await client.send_message(chat_id = user_id, text = "<i>You Have Successfully Completed Total Referal.\n\nYou Added In Premium For {}</i>".format(REFERAL_PREMEIUM_TIME))
-                    return 
-        else:
-             buttons = [[
-                 InlineKeyboardButton('⤬ Aᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴘ ⤬', url=f'http://t.me/{temp.U_NAME}?startgroup=true')
-             ],[
-                 InlineKeyboardButton('✧ ᴇΔʀꪀ ꪑᴏꫝᴇꪗ ✧', callback_data="shortlink_info"),
-                 InlineKeyboardButton('⌬ Mᴏᴠɪᴇ Gʀᴏᴜᴘ', url=GRP_LNK)
-             ],[
-                 InlineKeyboardButton('〄 Hᴇʟᴘ', callback_data='help'),
-                 InlineKeyboardButton('⍟ Aʙᴏᴜᴛ', callback_data='about')
-             ],[
-                 InlineKeyboardButton('✇ Jᴏɪɴ Uᴘᴅᴀᴛᴇs Cʜᴀɴɴᴇʟ ✇', url=CHNL_LNK)
-             ]]
-             reply_markup = InlineKeyboardMarkup(buttons)
-             m=await message.reply_sticker("CAACAgUAAxkBAAEDePpmZFgm0WcwNuK93-xyFlxcuERvuAACuRMAAlxlKFdLjAYn7DUluh4E") 
-             await asyncio.sleep(1)
-             await m.delete()
-             await message.reply_photo(
-                  photo=random.choice(PICS),
-                  caption=script.START_TXT.format(message.from_user.mention, temp.U_NAME, temp.B_NAME),
-                  reply_markup=reply_markup,
-                  parse_mode=enums.ParseMode.HTML
-             )
-             return 
     
-
-    
-                    [
-                        [
-                            InlineKeyboardButton('📁 ᴅᴏᴡɴʟᴏᴀᴅ 📁', url=g)
-                        ], [
-                            InlineKeyboardButton('⚡ ʜᴏᴡ ᴛᴏ ᴅᴏᴡɴʟᴏᴀᴅ ⚡', url=await get_tutorial(chat_id))
-                        ], [
-                            InlineKeyboardButton('✨ ʙᴜʏ ꜱᴜʙꜱᴄʀɪᴘᴛɪᴏɴ : ʀᴇᴍᴏᴠᴇ ᴀᴅꜱ ✨', callback_data="seeplans")                            
-                        ]
-                    ]
-                )
-            )
-            await asyncio.sleep(600)
-            await k.edit("<b>ʏᴏᴜʀ ᴍᴇꜱꜱᴀɢᴇ ɪꜱ ᴅᴇʟᴇᴛᴇᴅ !\nᴋɪɴᴅʟʏ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ.</b>")
-            return
 
 
 from pyrogram import Client, filters
