@@ -154,15 +154,15 @@ async def link(client, message):
         # Prepare file info and links
         file_name = message.document.file_name if message.document else message.video.file_name
         encoded_name = quote_plus(file_name)
-        lazy_stream = f"{URL}watch/{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
-        lazy_download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
+        stream = f"{URL}watch/{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
+        download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
 
    
         # Prepare buttons
         
         buttons = [[
-            InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=hp_link),
-            InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=ph_link)
+            InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
+            InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
         ], [
             InlineKeyboardButton('! Hᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴK !', url=STREAMHTO)
         ]]
