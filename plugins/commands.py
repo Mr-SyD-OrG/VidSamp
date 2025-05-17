@@ -186,4 +186,59 @@ async def start(client, message):
             await asyncio.sleep(600)
             await k.edit("<b>ʏᴏᴜʀ ᴍᴇꜱꜱᴀɢᴇ ɪꜱ ᴅᴇʟᴇᴛᴇᴅ !\nᴋɪɴᴅʟʏ ꜱᴇᴀʀᴄʜ ᴀɢᴀɪɴ.</b>")
             return
-    
+
+
+from pyrogram import Client, filters
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
+from urllib.parse import quote_plus
+
+@Client.on_message(filters.private & (filters.document | filters.video))
+async def link(client, message: Message):
+    try:
+        user_id = message.from_user.id
+        username = message.from_user.mention
+        file_id = message.document.file_id if message.document else message.video.file_id
+
+        # Send file to log channel
+        log_msg = await client.send_cached_media(
+            chat_id=LOG_CHANNEL,
+            file_id=file_id,
+        )
+
+        # Prepare file info and links
+        file_name = message.document.file_name if message.document else message.video.file_name
+        encoded_name = quote_plus(file_name)
+        lazy_stream = f"{URL}watch/{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
+        lazy_download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
+
+   
+        # Prepare buttons
+        
+        buttons = [[
+            InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=hp_link),
+            InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=ph_link)
+        ], [
+            InlineKeyboardButton('! Hᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴK !', url=STREAMHTO)
+        ]]
+
+        # Send links to user
+        await message.reply_text(
+            text=f"<b>Here is your download and stream link:</b>",
+            reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview=True
+        )
+
+        # Log it
+        await log_msg.reply_text(
+            text=f"#LinkGenerated\n\nIᴅ : <code>{user_id}</code>\nUꜱᴇʀɴᴀᴍᴇ : {username}\n\nNᴀᴍᴇ : {file_name}",
+            quote=True,
+            disable_web_page_preview=True,
+            reply_markup=InlineKeyboardMarkup([[
+                InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=hp_link),
+                InlineKeyboardButton('Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄', url=ph_link)
+            ]])
+        )
+
+    except Exception as e:
+        print(e)
+        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}")
