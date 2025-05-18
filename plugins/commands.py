@@ -165,8 +165,7 @@ async def link(client, message):
 
                     if not is_sub:
                         btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Bot_Cracker")])
-
-                    btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksyd#{log_msg.id}")])
+                        btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksyd#{log_msg.id}")])
                         
                     await client.send_message(
                         chat_id=message.from_user.id,
@@ -227,8 +226,9 @@ async def check_subscription_callback(client, query):
     try:
         file_id = query.data.split("#")[1]
         user_id = query.from_user.id
-
-        if AUTH_CHANNEL and not await is_req_subscribed(client, query):
+        is_req_sub = await is_req_subscribed(client, query)
+        is_sub = await is_subscribed(client, query)
+        if not (is_req_sub and is_sub):
             await query.answer("Jᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! ᴩʟᴇᴀꜱᴇ... 🥺", show_alert=True)
             return
 
