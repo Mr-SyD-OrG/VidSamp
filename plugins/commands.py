@@ -166,7 +166,7 @@ async def link(client, message):
                         
                     await client.send_message(
                         chat_id=message.from_user.id,
-                        text="Pʟᴇᴀꜱᴇ Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Iɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Tᴏ Gᴇᴛ Lɪɴᴋ Oꜰ Tʜᴇ Fɪʟᴇ.\n<blockquote>Lɪɴᴋ Wɪʟʟ Bᴇ <b>Sᴇɴᴅ Aᴜᴛᴏ</b> Eʟꜱᴇ, Iꜰ Tʜᴇʀᴇ Iꜱ A Tʀʏ Aɢᴀɪɴ Bᴜᴛᴛᴏɴ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Iᴛ. 🪁</blockquote>",
+                        text="<b>Pʟᴇᴀꜱᴇ Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Iɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Tᴏ Gᴇᴛ Lɪɴᴋ Oꜰ Tʜᴇ Fɪʟᴇ.\n<blockquote>Lɪɴᴋ Wɪʟʟ Bᴇ Sᴇɴᴅ Aᴜᴛᴏ Eʟꜱᴇ, Iꜰ Tʜᴇʀᴇ Iꜱ A Tʀʏ Aɢᴀɪɴ Bᴜᴛᴛᴏɴ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Iᴛ. 🪁</blockquote></b>",
                         reply_markup=InlineKeyboardMarkup(btn),
                         parse_mode=enums.ParseMode.MARKDOWN
                     )
