@@ -233,7 +233,7 @@ async def check_subscription_callback(client, query):
             await query.answer("Jᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! ᴩʟᴇᴀꜱᴇ... 🥺", show_alert=True)
             return
 
-        doc = await client.get_messages(LOG_CHANNEL, int(msg_id))
+        doc = await client.get_messages(LOG_CHANNEL, int(file_id))
         file_name = doc.document.file_name if doc.document else doc.video.file_name
         encoded_name = quote_plus(file_name)
 
