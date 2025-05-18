@@ -4,7 +4,7 @@ class script(object):
 I Cᴀɴ Pʀᴏᴠɪᴅᴇ Mᴏᴠɪᴇ Fᴏʀ Yᴏᴜ Jᴜsᴛ Tʏᴩᴇ Aɴᴅ Sᴇɴᴅ Tʜᴇ Mᴏᴠɪᴇ Aɴᴅ Yᴇᴀʀ ✨
 <blockquote>Oɴᴇ Oꜰ Tʜᴇ Wᴏʀʟᴅꜱ Cᴏᴏʟᴇꜱᴛ, Bɪɢɢᴇꜱᴛ Aɴᴅ Fɪɴᴇꜱᴛ DᴀᴛᴀBᴀꜱᴇ</blockquote></b>"""
     
-    START_TXT = """<b>ʜᴇʏ {}🤘, {}\n\nɪ ᴀᴍ ᴍꜱ ꜰɪʟᴇ 2 ʟɪɴᴋ ʙᴏᴛ ᴡʜɪᴄʜ ᴄᴀɴ ᴩʀᴏᴠɪᴅᴇ ᴩᴇʀᴍᴇɴᴇɴᴛ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ ꜰᴏʀ ʏᴏᴜʀ ꜰɪʟᴇꜱ 🎐.\n\n<blockquote>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockquote></b>"""
+    START_TXT = """<b>ʜᴇʏ {}🤘, {}\n\nɪ ᴀᴍ ᴍꜱ ꜰɪʟᴇ ² ʟɪɴᴋ ʙᴏᴛ ᴡʜɪᴄʜ ᴄᴀɴ ᴩʀᴏᴠɪᴅᴇ ᴩᴇʀᴍᴇɴᴇɴᴛ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ ꜰᴏʀ ʏᴏᴜʀ ꜰɪʟᴇꜱ 🎐.\n<blockquote>Jᴜꜱᴛ ꜱᴇɴᴅ ᴛʜᴇ ꜰɪʟᴇ.. ☃️</blockquote>\n<blockquote>ᴍᴀɪɴᴛᴀɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓</blockquote></b>"""
 
     GSTART_TXT = """<b>ʜᴇʏ {}🫶,\n\nɪ Δᴍ ᴛʜᴇ ᴍᴏꜱᴛ ᴘᴏᴡᴇʀꜰᴜʟ ᴀᴜᴛᴏ ꜰɪʟᴛᴇʀ ʙᴏᴛ 💭 ᴡɪᴛʜ ꜰʀɪᴇɴᴅʟʏ ꜰᴇᴀᴛᴜʀᴇꜱ ❄️.\n\n<blockqoute>ᴍᴀɪɴᴛΔɪɴᴇᴅ ʙʏ <a href="https://t.me/Mod_Moviez_X">Mᴏᴅ ᴍᴏᴠɪeᴢ ˹x˼™ ᠰ𐂮</a>🍓 </blockqoute></b>"""
     
@@ -24,7 +24,6 @@ Cʜᴏᴏꜱᴇ Tʜᴇ Ғᴇᴀᴛᴜʀᴇ Tʜᴀᴛ Yᴏᴜ Nᴇᴇᴅ..... Pʟ
 ▫ ᴄᴏᴍᴩʟᴇᴛᴇ ᴜꜱᴇꜰᴜʟʟ ʙᴏᴛꜱ.</b>"""
     
     STATUS_TXT = """<code><b>    
-‣ Tᴏᴛᴀʟ ꜰɪʟᴇꜱ : {}
 ‣ Tᴏᴛᴀʟ ᴜꜱᴇʀꜱ : {}
 ‣ Tᴏᴛᴀʟ ɢʀᴏᴜᴘꜱ : {}
 ‣ Uꜱᴇᴅ ꜱᴛᴏʀᴀɢᴇ : {}
