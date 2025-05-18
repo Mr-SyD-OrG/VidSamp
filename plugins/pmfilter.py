@@ -1391,48 +1391,27 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "start":
         user_id = query.from_user.id
-        buttons = []
-        if await db.has_premium_access(user_id):                               
-            buttons = [[
-                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
+        buttons = [[
+                    InlineKeyboardButton('✲ Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Bot_cracker'),
+                    InlineKeyboardButton('Mᴏᴠɪᴇꜱ ✲', url='https://t.me/Mod_Moviez_X')
                 ],[
-                    InlineKeyboardButton('⌬ ᴇΔʀꪀ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛᴇ𝘴 ⚝', callback_data='channels')
+                    InlineKeyboardButton('⌬ Hᴇʟᴩ ⌬', callback_data='help')
+                ], [
+                    InlineKeyboardButton('⚝ Oᴡɴᴇʀ', user_id=1733124290),
+                    InlineKeyboardButton("Bᴏᴛꜱ ⚝", url="https://t.me/Bot_Cracker/17")
                 ],[
-                    InlineKeyboardButton('⊜ ᴄ0ᴍᴍᴀɴᴅꜱ ⊜', callback_data='help'),
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
-                  ]]
-        else:
-            buttons = [[
-                    InlineKeyboardButton('☒ Δᴅᴅ Mᴇ Tᴏ Yᴏᴜʀ Gʀᴏᴜᴩ ☒', url=f'http://telegram.me/{temp.U_NAME}?startgroup=true')
-                ],[
-                    InlineKeyboardButton('⌬ ᴇΔʀꪀ ꪑᴏꫝᴇꪗ ⌬', callback_data="shortlink_info"),
-                    InlineKeyboardButton('⚝ ᴜᴘᦔΔᴛꫀ𝘴 ⚝', callback_data='channels')
-                ],[
-                    InlineKeyboardButton('⊜ ᴄ0ᴍᴍᴀɴᴅꜱ ⊜', callback_data='help'),
-                    InlineKeyboardButton('⊛ Δʙᴏᴜᴛ ⊛', callback_data='about')
-                ],[
-                    InlineKeyboardButton("◎ Sꪊʙꜱᴄʀɪᴩᴛɪꪮɴ - Fяᴇᴇ Δɴ' Pᴀɪᴅ ◎", callback_data="premium_info")
-                  ]]
+                    InlineKeyboardButton('◎ Gʀᴏᴜᴩ ◎', url='https://t.me/+5n7vViwKXJJiMjhl')
+                ]]
         
         reply_markup = InlineKeyboardMarkup(buttons)
-        current_time = datetime.now(pytz.timezone(TIMEZONE))
-        curr_time = current_time.hour        
-        if curr_time < 12:
-            gtxt = "Gᴏᴏᴅ ᴍᴏʀɴɪɴG 🌄👋" 
-        elif curr_time < 17:
-            gtxt = "ɢOOᴅ ᴀғᴛᴇʀɴOOɴ 🥵👋" 
-        elif curr_time < 21:
-            gtxt = "Gᴏᴏᴅ ᴇᴠᴇɴɪɴG 🌅👋"
-        else:
-            gtxt = "Gᴏᴏᴅ ɴɪɢʜT 🥱😪👋"
+        
         await client.edit_message_media(
             query.message.chat.id, 
             query.message.id, 
             InputMediaPhoto(random.choice(PICS))
         )
         await query.message.edit_text(
-            text=script.START_TXT.format(query.from_user.mention, gtxt, temp.U_NAME, temp.B_NAME),
+            text=script.START_TXT.format(query.from_user.mention, temp.U_NAME, temp.B_NAME),
             reply_markup=reply_markup,
             parse_mode=enums.ParseMode.HTML
         )
@@ -1541,7 +1520,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
             InlineKeyboardButton('!! Dɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
         ], [
-            InlineKeyboardButton('✧ ꜱᴀᴍᴩʟᴇ', url='https://immense-tabbie-mrsydarise-9fae8c25.koyeb.app/watch/130088/Anime_Trailer_If_Whole_Anime_Was_Considered_As_One_WoRSyD_%40GetTGlinks.mkv?hash=AgADqh'),
+            InlineKeyboardButton('✧ ꜱᴀᴍᴩʟᴇ', url='https://immense-tabbie-mrsydarise-9fae8c25.koyeb.app/watch/4649/Anime_Trailer_If_Whole_Anime_Was_Considered_As_One_WoRSyD_%40GetTGlinks.mkv?hash=AgADqh'),
             InlineKeyboardButton('ꜱᴛᴀᴛᴜꜱ ✧', callback_data='stats')
         ], [
             InlineKeyboardButton('⇋ ʜᴏᴍᴇ', callback_data='start'),
