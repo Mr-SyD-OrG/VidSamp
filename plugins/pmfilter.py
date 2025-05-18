@@ -1701,7 +1701,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     
     elif query.data == "disclaimer":
             btn = [[
-                    InlineKeyboardButton("⇋ ʙᴀᴄᴋ ⇋", callback_data="about")
+                    InlineKeyboardButton("⇋ ʙᴀᴄᴋ ⇋", callback_data="help")
             ]]
             reply_markup = InlineKeyboardMarkup(btn)
             await client.edit_message_media(
