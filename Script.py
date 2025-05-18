@@ -15,7 +15,7 @@ I Cᴀɴ Pʀᴏᴠɪᴅᴇ Mᴏᴠɪᴇ Fᴏʀ Yᴏᴜ Jᴜsᴛ Tʏᴩᴇ Aɴᴅ
 Cʜᴏᴏꜱᴇ Tʜᴇ Ғᴇᴀᴛᴜʀᴇ Tʜᴀᴛ Yᴏᴜ Nᴇᴇᴅ..... Pʟᴇᴀꜱᴇ.. 😇</b>"""
 
 
-    ABOUT_TXT = """<b>‣ Mʏ ɴᴀᴍᴇ : {}\n‣ Oᴡɴᴇʀ : <a href='https://t.me/SyD_XyZ'>Mг SƴD 🪩</a>\n‣ Sᴜᴩᴩᴏʀᴛᴇʀ : <a href='tg://settings'>{} {}</a> \n‣ Lɪʙʀᴀʀʏ : <a href='https://t.me/+-VpGTWWWTldhZWNl'>Tɢ 🫥</a>\n‣ Lᴀɴɢᴜᴀɢᴇ : <a href='https://t.me/+7gcr4NFJwxE0ZDdl'>ᴩʏᴛʜᴛɴ</a>\n‣ Dᴀᴛᴀ-Bᴀsᴇ : <a href='https://t.me/+0Zi1FC4ulo8zYzVl'>ꜱᴛʀᴇᴀᴍɪɴ.</a>\n‣ Bᴀᴄᴋ-Uᴩ : <a href="https://t.me/nt_Backup/5">UʀɢΞɴᴛ BΔᴄᴋ-Uᴩ🎗🔙🔄</a>\n‣ Hᴏsᴛᴇᴅ ᴀᴛ  : <a href='https://t.me/mod_moviez_x'>Tɢ 🫥</a>\n‣ Bᴜɪʟᴅ Vᴇʀꜱɪᴏɴ : ᴠ1.0 [ᴍʀ.ꜱʏᴅ✨]</b>"""
+    ABOUT_TXT = """<b>‣ Mʏ ɴᴀᴍᴇ : {}\n‣ Oᴡɴᴇʀ : <a href='https://t.me/SyD_XyZ'>ᴍʀ ꜱʏᴅ 🎏</a>\n‣ Sᴜᴩᴩᴏʀᴛᴇʀ : <a href='tg://settings'>{} {}</a> \n‣ Lɪʙʀᴀʀʏ : <a href='https://t.me/+-VpGTWWWTldhZWNl'>Tɢ 🫥</a>\n‣ Lᴀɴɢᴜᴀɢᴇ : <a href='https://t.me/+7gcr4NFJwxE0ZDdl'>ᴩʏᴛʜᴏɴ</a>\n‣ Dᴀᴛᴀ-Bᴀsᴇ : <a href='https://t.me/+0Zi1FC4ulo8zYzVl'>ꜱᴛʀᴇᴀᴍɪɴ.</a>\n‣ Bᴀᴄᴋ-Uᴩ : <a href="https://t.me/nt_Backup/5">UʀɢΞɴᴛ BΔᴄᴋ-Uᴩ🎗🔙🔄</a>\n‣ Hᴏsᴛᴇᴅ ᴀᴛ  : <a href='https://t.me/mod_moviez_x'>Tɢ 🫥</a>\n‣ Bᴜɪʟᴅ Vᴇʀꜱɪᴏɴ : ᴠ1.0 [ᴍʀ.ꜱʏᴅ✨]</b>"""
     
     CHANNELS = """
 <b>⚡ Oᴜʀ Gʀᴏᴜᴘs Δɴ' Cʜᴀɴɴᴇʟs Iɴғᴏ.. ⚡ 
