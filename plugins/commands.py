@@ -8,6 +8,7 @@ from datetime import datetime
 from pyrogram import Client, filters, enums
 from pyrogram.errors import ChatAdminRequired, FloodWait
 from pyrogram.types import *
+from pyrogram.types import ChatJoinRequest
 from urllib.parse import quote_plus
 from database.ia_filterdb import Media, get_file_details, unpack_new_file_id, get_bad_files
 from database.users_chats_db import db, delete_all_referal_users, get_referal_users_count, get_referal_all_users, referal_add_user
@@ -127,10 +128,6 @@ async def start(client, message):
         )
         return
     
-
-
-from pyrogram import Client, filters
-from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
 @Client.on_message(filters.private & (filters.document | filters.video))
 async def link(client, message):
@@ -257,10 +254,6 @@ async def check_subscription_callback(client, query):
         await query.message.edit_text(f"⚠️ Failed to generate link\n\n{e}")
 
 
-from pyrogram import Client, filters, enums
-from pyrogram.types import ChatJoinRequest
-from database.users_chats_db import db
-from info import ADMINS, AUTH_CHANNEL
 
 @Client.on_chat_join_request(filters.chat(AUTH_CHANNEL))
 async def join_reqs(client, message: ChatJoinRequest):
