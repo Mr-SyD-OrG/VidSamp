@@ -78,7 +78,7 @@ async def give_filter(client, message):
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
     
     await message.reply_text(
-          text="<i><b>Sᴇɴᴅ ꜰɪʟᴇ ᴛᴏ ꜰᴏʀ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ ᴀɴᴅ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ.</b></i>",   
+          text="<i><b>Sᴇɴᴅ ꜰɪʟᴇ ᴛᴏ ɢᴇᴛ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ ᴀɴᴅ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ.</b></i>",   
           reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/MovSearch_X1_Bot")]])
     )
     return
@@ -89,7 +89,7 @@ async def pm_text(bot, message):
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
     
     await message.reply_text(
-          text="<i><b>Sᴇɴᴅ ꜰɪʟᴇ ᴛᴏ ꜰᴏʀ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ ᴀɴᴅ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ.</b></i>",   
+          text="<i><b>Sᴇɴᴅ ꜰɪʟᴇ ᴛᴏ ɢᴇᴛ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ ᴀɴᴅ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ.</b></i>",   
           reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/MovSearch_X1_Bot")]])
     )
     return
