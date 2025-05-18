@@ -1541,7 +1541,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
         buttons = [[
             InlineKeyboardButton('!! Dɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
         ], [
-            InlineKeyboardButton('ꜱᴀᴍᴩʟᴇ', url='users'),
+            InlineKeyboardButton('✧ ꜱᴀᴍᴩʟᴇ', url='https://immense-tabbie-mrsydarise-9fae8c25.koyeb.app/watch/130088/Anime_Trailer_If_Whole_Anime_Was_Considered_As_One_WoRSyD_%40GetTGlinks.mkv?hash=AgADqh'),
             InlineKeyboardButton('ꜱᴛᴀᴛᴜꜱ ✧', callback_data='stats')
         ], [
             InlineKeyboardButton('⇋ ʜᴏᴍᴇ', callback_data='start'),
