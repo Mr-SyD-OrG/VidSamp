@@ -1437,23 +1437,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
             parse_mode=enums.ParseMode.HTML
         )
 
-    elif query.data == "upi_info":
-        buttons = [[
-            InlineKeyboardButton('📲 ꜱᴇɴᴅ ᴘᴀʏᴍᴇɴᴛ ꜱᴄʀᴇᴇɴꜱʜᴏᴛ ʜᴇʀᴇ', user_id=int(7672))
-        ],[
-            InlineKeyboardButton('⇋ ʙΔᴄᴋ ⇋', callback_data='purchase')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await client.edit_message_media(
-            query.message.chat.id, 
-            query.message.id, 
-            InputMediaPhoto(random.choice(PICS))
-        )
-        await query.message.edit_text(
-            text=script.UPI_TXT.format(query.from_user.mention),
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
+    
 
     elif query.data == "channels":
         buttons = [[
@@ -1518,13 +1502,13 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "help":
         buttons = [[
-            InlineKeyboardButton('!! Dɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
+            InlineKeyboardButton('!! ᴅɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
         ], [
             InlineKeyboardButton('✧ ꜱᴀᴍᴩʟᴇ', url='https://immense-tabbie-mrsydarise-9fae8c25.koyeb.app/watch/4649/Anime_Trailer_If_Whole_Anime_Was_Considered_As_One_WoRSyD_%40GetTGlinks.mkv?hash=AgADqh'),
             InlineKeyboardButton('ꜱᴛᴀᴛᴜꜱ ✧', callback_data='stats')
         ], [
             InlineKeyboardButton('⇋ ʜᴏᴍᴇ', callback_data='start'),
-            InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='about')
+            InlineKeyboardButton('ᴀʙᴏᴜᴛ ◇', callback_data='about')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
         await client.edit_message_media(
