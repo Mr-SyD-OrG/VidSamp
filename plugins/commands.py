@@ -264,12 +264,13 @@ from info import ADMINS, AUTH_CHANNEL
 
 @Client.on_chat_join_request(filters.chat(AUTH_CHANNEL))
 async def join_reqs(client, message: ChatJoinRequest):
-  if not await db.find_join_req(message.from_user.id):
-    await db.add_join_req(message.from_user.id)
+  user_id = message.from_user.id
+  if not await db.find_join_req(user_id):
+    await db.add_join_req(user_id)
     file_id = await db.get_stored_file_id(user_id)
     if not file_id:
         try:
-            await client.send_message(message.from_user.id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>")
+            await client.send_message(user_id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>")
         except:
             pass
         return
