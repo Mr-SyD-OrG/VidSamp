@@ -52,7 +52,7 @@ async def start(client, message):
                     InlineKeyboardButton('✲ Uᴩᴅᴀᴛᴇꜱ', url='https://t.me/Bot_cracker'),
                     InlineKeyboardButton('Mᴏᴠɪᴇꜱ ✲', url='https://t.me/Mod_Moviez_X')
                 ],[
-                    InlineKeyboardButton('⌬ ʜᴇʟᴩ ⌬', callback_data='help')
+                    InlineKeyboardButton('⌬ Hᴇʟᴩ ⌬', callback_data='help')
                 ], [
                     InlineKeyboardButton('⚝ Oᴡɴᴇʀ', user_id=1733124290),
                     InlineKeyboardButton("Bᴏᴛꜱ ⚝", url="https://t.me/Bot_Cracker/17")
