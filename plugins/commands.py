@@ -168,7 +168,7 @@ async def link(client, message):
                         chat_id=message.from_user.id,
                         text="<b>Pʟᴇᴀꜱᴇ Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Iɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Tᴏ Gᴇᴛ Lɪɴᴋ Oꜰ Tʜᴇ Fɪʟᴇ.\n<blockquote>Lɪɴᴋ Wɪʟʟ Bᴇ Sᴇɴᴅ Aᴜᴛᴏ Eʟꜱᴇ, Iꜰ Tʜᴇʀᴇ Iꜱ A Tʀʏ Aɢᴀɪɴ Bᴜᴛᴛᴏɴ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Iᴛ. 🪁</blockquote></b>",
                         reply_markup=InlineKeyboardMarkup(btn),
-                        parse_mode=enums.ParseMode.MARKDOWN
+                        parse_mode=enums.ParseMode.HTML
                     )
                     await db.store_file_id_if_not_subscribed(user_id, log_msg.id)
                     return
