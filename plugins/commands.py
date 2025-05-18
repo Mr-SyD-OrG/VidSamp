@@ -169,7 +169,7 @@ async def link(client, message):
                         
                     await client.send_message(
                         chat_id=message.from_user.id,
-                        text="Jᴏɪɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ ᴀɴᴅ Tʜᴇɴ Cʟɪᴄᴋ Oɴ ᴛʀʏ ᴀɢᴀɪɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ ꜰɪʟᴇ.",
+                        text="Pʟᴇᴀꜱᴇ Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Iɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Tᴏ Gᴇᴛ Lɪɴᴋ Oꜰ Tʜᴇ Fɪʟᴇ.\n<blockquote>Lɪɴᴋ Wɪʟʟ Bᴇ <b>Sᴇɴᴅ Aᴜᴛᴏ</b> Eʟꜱᴇ, Iꜰ Tʜᴇʀᴇ Iꜱ A Tʀʏ Aɢᴀɪɴ Bᴜᴛᴛᴏɴ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Iᴛ. 🪁</blockquote>",
                         reply_markup=InlineKeyboardMarkup(btn),
                         parse_mode=enums.ParseMode.MARKDOWN
                     )
@@ -217,7 +217,7 @@ async def link(client, message):
 
     except Exception as e:
         print(e)
-        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}")
+        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}\nForward Message To @Syd_XyZ")
 
 
 
@@ -229,7 +229,7 @@ async def check_subscription_callback(client, query):
         is_req_sub = await is_req_subscribed(client, query)
         is_sub = await is_subscribed(client, query)
         if not (is_req_sub and is_sub):
-            await query.answer("Jᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! ᴩʟᴇᴀꜱᴇ... 🥺", show_alert=True)
+            await query.answer("Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ ɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! ᴩʟᴇᴀꜱᴇ... 🥺", show_alert=True)
             return
 
         doc = await client.get_messages(LOG_CHANNEL, int(file_id))
