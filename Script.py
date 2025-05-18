@@ -13,7 +13,7 @@ I Cᴀɴ Pʀᴏᴠɪᴅᴇ Mᴏᴠɪᴇ Fᴏʀ Yᴏᴜ Jᴜsᴛ Tʏᴩᴇ Aɴᴅ
     
     HLP_TXT = """<b>ʜᴇʏ {},
 Cʜᴏᴏꜱᴇ Tʜᴇ Ғᴇᴀᴛᴜʀᴇ Tʜᴀᴛ Yᴏᴜ Nᴇᴇᴅ..... Pʟᴇᴀꜱᴇ.. 😇</b>"""
-    ABOUT_TXT = """<b>‣ Mʏ ɴᴀᴍᴇ : {}\n‣ Oᴡɴᴇʀ : <a href='https://t.me/SyD_XyZ'>Mг SƴD 🪩</a>\n‣ Sᴜᴩᴩᴏʀᴛᴇʀ : <a href='tg://settings'>{} {}</a> \n‣ Lɪʙʀᴀʀʏ : <a href='https://t.me/+-VpGTWWWTldhZWNl'>Tɢ 🫥</a>\n‣ Lᴀɴɢᴜᴀɢᴇ : <a href='https://t.me/+oej8cujHMFJhNmI9'>🎐Δʜʜ...</a>\n‣ Dᴀᴛᴀ-Bᴀsᴇ : <a href='https://t.me/+FVhNXfcyt9c3NjFl'>Pʀᴏ..ᴇᴅ</a>\n‣ Bᴀᴄᴋ-Uᴩ : <a href="https://t.me/nt_Backup/5">UʀɢΞɴᴛ BΔᴄᴋ-Uᴩ🎗🔙🔄</a>\n‣ Hᴏsᴛᴇᴅ ᴀᴛ  : <a href='https://t.me/mod_moviez_x'>Tɢ 🫥</a>\n‣ Bᴜɪʟᴅ Vᴇʀꜱɪᴏɴ : ᴠ1.0 [ᴍʀ.ꜱʏᴅ✨]</b>"""
+    ABOUT_TXT = """<b>‣ Mʏ ɴᴀᴍᴇ : {}\n‣ Oᴡɴᴇʀ : <a href='https://t.me/SyD_XyZ'>Mг SƴD 🪩</a>\n‣ Sᴜᴩᴩᴏʀᴛᴇʀ : <a href='tg://settings'>{} {}</a> \n‣ Lɪʙʀᴀʀʏ : <a href='https://t.me/+-VpGTWWWTldhZWNl'>Tɢ 🫥</a>\n‣ Lᴀɴɢᴜᴀɢᴇ : <a href='https://t.me/+7gcr4NFJwxE0ZDdl'>ᴩʏᴛʜᴛɴ</a>\n‣ Dᴀᴛᴀ-Bᴀsᴇ : <a href='https://t.me/+0Zi1FC4ulo8zYzVl'>ꜱᴛʀᴇᴀᴍɪɴ.</a>\n‣ Bᴀᴄᴋ-Uᴩ : <a href="https://t.me/nt_Backup/5">UʀɢΞɴᴛ BΔᴄᴋ-Uᴩ🎗🔙🔄</a>\n‣ Hᴏsᴛᴇᴅ ᴀᴛ  : <a href='https://t.me/mod_moviez_x'>Tɢ 🫥</a>\n‣ Bᴜɪʟᴅ Vᴇʀꜱɪᴏɴ : ᴠ1.0 [ᴍʀ.ꜱʏᴅ✨]</b>"""
     
     CHANNELS = """
 <b>⚡ Oᴜʀ Gʀᴏᴜᴘs Δɴ' Cʜᴀɴɴᴇʟs Iɴғᴏ.. ⚡ 
@@ -29,7 +29,7 @@ Cʜᴏᴏꜱᴇ Tʜᴇ Ғᴇᴀᴛᴜʀᴇ Tʜᴀᴛ Yᴏᴜ Nᴇᴇᴅ..... Pʟ
 ‣ Tᴏᴛᴀʟ ɢʀᴏᴜᴘꜱ : {}
 ‣ Uꜱᴇᴅ ꜱᴛᴏʀᴀɢᴇ : {}
 ‣ Fʀᴇᴇ ꜱᴛᴏʀᴀɢᴇ : {}
-‣ Tʜᴀɴᴋꜱ T0 : <a href="https://t.me/Bot_Cracker">ʙᴏᴛ ᴄʀᴀᴄᴋᴇʀ 🎋</a>
+‣ Tʜᴀɴᴋꜱ Tᴏ : <a href="https://t.me/Bot_Cracker">ʙᴏᴛ ᴄʀᴀᴄᴋᴇʀ 🎋</a>
 </b></code>"""
     
     LOG_TEXT_G = """#NewGroup
