@@ -1539,10 +1539,10 @@ async def cb_handler(client: Client, query: CallbackQuery):
 
     elif query.data == "help":
         buttons = [[
-            InlineKeyboardButton('Exᴛʀᴀ', callback_data='xtra')
+            InlineKeyboardButton('!! Dɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
         ], [
-            InlineKeyboardButton('Uꜱᴇʀꜱ', callback_data='users'),
-            InlineKeyboardButton('Gʀᴏᴜᴘꜱ', callback_data='group')
+            InlineKeyboardButton('ꜱᴀᴍᴩʟᴇ', url='users'),
+            InlineKeyboardButton('ꜱᴛᴀᴛᴜꜱ ✧', callback_data='stats')
         ], [
             InlineKeyboardButton('⇋ ʜᴏᴍᴇ', callback_data='start'),
             InlineKeyboardButton('ᴀʙᴏᴜᴛ', callback_data='enter')
@@ -1625,14 +1625,6 @@ async def cb_handler(client: Client, query: CallbackQuery):
         
     elif query.data == "about":
         buttons = [[
-            InlineKeyboardButton('!! Dɪꜱᴄʟᴀɪᴍᴇʀ !!', callback_data='disclaimer')
-        ], [
-            InlineKeyboardButton('♕ Oᴡɴᴇʀ ♕', user_id=1733124290),
-            InlineKeyboardButton('BΔᴄᴋ-Uᴩ 💭', url="https://t.me/nt_Backup/5"),
-            InlineKeyboardButton('✧ ꜱᴛΔᴛꜱ ✧', callback_data='stats')
-        ], [
-            InlineKeyboardButton('⛈ ʀᴇɴᴅᴇʀɪɴɢ ꜱᴛᴀᴛᴜꜱ ⛈',callback_data='rendr')
-        ], [
             InlineKeyboardButton('♙ ʜ0ᴍᴇ ', callback_data='start'),
             InlineKeyboardButton('ᴄʟᴏꜱᴇ ⊖', callback_data='close_data')
         ]]
