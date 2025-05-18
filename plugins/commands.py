@@ -141,6 +141,11 @@ async def link(client, message):
         username = message.from_user.mention
         file_id = message.document.file_id if message.document else message.video.file_id
 
+        log_msg = await client.send_cached_media(
+            chat_id=LOG_CHANNEL,
+            file_id=file_id,
+        )
+
         if AUTH_CHANNEL:
             try:
                 # Fetch subscription statuses once
@@ -166,7 +171,7 @@ async def link(client, message):
                     if len(message.command) > 1 and message.command[1] != "subscribe":
                         try:
                             kk, file_id = message.command[1].split("_", 1)
-                            btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksub#{kk}#{file_id}")])
+                            btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksyd#{log_msg.id}")])
                         except (IndexError, ValueError):
                             btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
 
@@ -182,11 +187,7 @@ async def link(client, message):
                 await client.send_message(chat_id=1733124290, text="FORCE  SUB  ERROR ......  CHECK LOGS")
 
         # Send file to log channel
-        log_msg = await client.send_cached_media(
-            chat_id=LOG_CHANNEL,
-            file_id=file_id,
-        )
-
+        
         # Prepare file info and links
         file_name = message.document.file_name if message.document else message.video.file_name
         encoded_name = quote_plus(file_name)
@@ -224,3 +225,39 @@ async def link(client, message):
     except Exception as e:
         print(e)
         await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}")
+
+
+
+@Client.on_callback_query(filters.regex(r"checksyd"))
+async def check_subscription_callback(client, query):
+    try:
+        file_id = query.data.split("#")[1]
+        user_id = query.from_user.id
+
+        if AUTH_CHANNEL and not await is_req_subscribed(client, query):
+            await query.answer("Jᴏɪɴ ᴏᴜʀ ᴜᴘᴅᴀᴛᴇꜱ ᴄʜᴀɴɴᴇʟ ᴍᴀʜɴ! ᴩʟᴇᴀꜱᴇ... 🥺", show_alert=True)
+            return
+
+        doc = await client.get_messages(LOG_CHANNEL, int(msg_id))
+        file_name = doc.document.file_name if doc.document else doc.video.file_name
+        encoded_name = quote_plus(file_name)
+
+        stream = f"{URL}watch/{msg_id}/{encoded_name}?hash={get_hash(doc)}"
+        download = f"{URL}{msg_id}/{encoded_name}?hash={get_hash(doc)}"
+
+        buttons = [[
+            InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
+            InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
+        ]]
+
+        await query.message.edit_text(
+            text="<b>Here is your download and stream link:</b>",
+            reply_markup=InlineKeyboardMarkup(buttons),
+            disable_web_page_preview=True
+        )
+
+        # Remove file_id from DB if stored
+        await db.collection.delete_one({"_id": user_id})
+
+    except Exception as e:
+        await query.message.edit_text(f"⚠️ Failed to generate link\n\n{e}")
