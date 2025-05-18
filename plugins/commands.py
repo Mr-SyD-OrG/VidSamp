@@ -174,7 +174,7 @@ async def link(client, message):
                         reply_markup=InlineKeyboardMarkup(btn),
                         parse_mode=enums.ParseMode.MARKDOWN
                     )
-                    await store_file_id_if_not_subscribed(user_id, log_msg.id)
+                    await db.store_file_id_if_not_subscribed(user_id, log_msg.id)
                     return
             except Exception as e:
                 logger.error(f"Error in subscription check: {e}")
@@ -266,7 +266,7 @@ from info import ADMINS, AUTH_CHANNEL
 async def join_reqs(client, message: ChatJoinRequest):
   if not await db.find_join_req(message.from_user.id):
     await db.add_join_req(message.from_user.id)
-    file_id = await get_stored_file_id(user_id)
+    file_id = await db.get_stored_file_id(user_id)
     if not file_id:
         try:
             await client.send_message(message.from_user.id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>")
@@ -290,6 +290,7 @@ async def join_reqs(client, message: ChatJoinRequest):
         reply_markup=InlineKeyboardMarkup(buttons),
         disable_web_page_preview=True
     )
+    await db.remove_stored_file_id(user_id)
     
 
 @Client.on_message(filters.command("delreq") & filters.private & filters.user(ADMINS))
