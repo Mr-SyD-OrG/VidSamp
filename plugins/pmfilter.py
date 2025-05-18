@@ -1560,35 +1560,11 @@ async def cb_handler(client: Client, query: CallbackQuery):
                 parse_mode=enums.ParseMode.HTML
             )
         
-    elif query.data == "ytdl":
-        buttons = [[
-            InlineKeyboardButton('⇍ ʙᴀᴄᴋ ⇏', callback_data='xtra')
-        ]]
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await query.message.edit_text(
-            text="● ◌ ◌"
-        )
-        await query.message.edit_text(
-            text="● ● ◌"
-        )
-        await query.message.edit_text(
-            text="● ● ●"
-        )
-        reply_markup = InlineKeyboardMarkup(buttons)
-        await client.edit_message_media(
-            query.message.chat.id, 
-            query.message.id, 
-            InputMediaPhoto(random.choice(PICS))
-        )
-        await query.message.edit_text(
-            text=script.YTDL_TXT,
-            reply_markup=reply_markup,
-            parse_mode=enums.ParseMode.HTML
-        )
+    
         
     elif query.data == "about":
         buttons = [[
-            InlineKeyboardButton('♙ ʜ0ᴍᴇ ', callback_data='start'),
+           InlineKeyboardButton('⇋ Bᴀᴄᴋ', callback_data='help'),
             InlineKeyboardButton('ᴄʟᴏꜱᴇ ⊖', callback_data='close_data')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1624,7 +1600,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     
     elif query.data == "stats":
         buttons = [[
-            InlineKeyboardButton('⇇ ʙΔᴄᴋ', callback_data='help'),
+            InlineKeyboardButton('⇇ Bᴀᴄᴋ', callback_data='help'),
             InlineKeyboardButton('⟲ ʀᴇғяᴇsʜ ⟲', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
@@ -1647,7 +1623,7 @@ async def cb_handler(client: Client, query: CallbackQuery):
     elif query.data == "rfrsh":
         await query.answer("ꜰᴇᴛᴄʜɪɴɢ ᴍᴏɴɢᴏ-ᴅʙ ᴅᴀᴛᴀʙᴀꜱᴇ...")
         buttons = [[
-            InlineKeyboardButton('⇇ ʙΔᴄᴋ', callback_data='about'),
+            InlineKeyboardButton('⇇ Bᴀᴄᴋ', callback_data='about'),
             InlineKeyboardButton('⟲ RᴇғʀᴇsH ⟲', callback_data='rfrsh')
         ]]
         reply_markup = InlineKeyboardMarkup(buttons)
