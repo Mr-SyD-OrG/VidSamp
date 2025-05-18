@@ -142,44 +142,44 @@ async def link(client, message):
         file_id = message.document.file_id if message.document else message.video.file_id
 
         if AUTH_CHANNEL:
-        try:
-            # Fetch subscription statuses once
-            is_req_sub = await is_req_subscribed(client, message)
-            is_sub = await is_subscribed(client, message)
+            try:
+                # Fetch subscription statuses once
+                is_req_sub = await is_req_subscribed(client, message)
+                is_sub = await is_subscribed(client, message)
 
-            if not (is_req_sub and is_sub):
-                try:
-                    invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL), creates_join_request=True)
-                except ChatAdminRequired:
-                    logger.error("Make sure Bot is admin in Forcesub channel")
-                    return
-                
-                btn = []
-
-                # Only add buttons if the user is not subscribed
-                if not is_req_sub:
-                    btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ¹⊛", url=invite_link.invite_link)])
-
-                if not is_sub:
-                    btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Bot_Cracker")])
-
-                if len(message.command) > 1 and message.command[1] != "subscribe":
+                if not (is_req_sub and is_sub):
                     try:
-                        kk, file_id = message.command[1].split("_", 1)
-                        btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksub#{kk}#{file_id}")])
-                    except (IndexError, ValueError):
-                        btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+                        invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL), creates_join_request=True)
+                    except ChatAdminRequired:
+                        logger.error("Make sure Bot is admin in Forcesub channel")
+                        return
 
-                await client.send_message(
-                    chat_id=message.from_user.id,
-                    text="Jᴏɪɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ ᴀɴᴅ Tʜᴇɴ Cʟɪᴄᴋ Oɴ ᴛʀʏ ᴀɢᴀɪɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ ꜰɪʟᴇ.",
-                    reply_markup=InlineKeyboardMarkup(btn),
-                    parse_mode=enums.ParseMode.MARKDOWN
-                )
-                return
-        except Exception as e:
-            logger.error(f"Error in subscription check: {e}")
-            await client.send_message(chat_id=1733124290, text="FORCE  SUB  ERROR ......  CHECK LOGS")
+                    btn = []
+
+                    # Only add buttons if the user is not subscribed
+                    if not is_req_sub:
+                        btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ¹⊛", url=invite_link.invite_link)])
+
+                    if not is_sub:
+                        btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Bot_Cracker")])
+
+                    if len(message.command) > 1 and message.command[1] != "subscribe":
+                        try:
+                            kk, file_id = message.command[1].split("_", 1)
+                            btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksub#{kk}#{file_id}")])
+                        except (IndexError, ValueError):
+                            btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", url=f"https://t.me/{temp.U_NAME}?start={message.command[1]}")])
+
+                    await client.send_message(
+                        chat_id=message.from_user.id,
+                        text="Jᴏɪɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ ᴀɴᴅ Tʜᴇɴ Cʟɪᴄᴋ Oɴ ᴛʀʏ ᴀɢᴀɪɴ ᴛᴏ ɢᴇᴛ ʏᴏᴜʀ ʀᴇǫᴜᴇꜱᴛᴇᴅ ꜰɪʟᴇ.",
+                        reply_markup=InlineKeyboardMarkup(btn),
+                        parse_mode=enums.ParseMode.MARKDOWN
+                    )
+                    return
+            except Exception as e:
+                logger.error(f"Error in subscription check: {e}")
+                await client.send_message(chat_id=1733124290, text="FORCE  SUB  ERROR ......  CHECK LOGS")
 
         # Send file to log channel
         log_msg = await client.send_cached_media(
