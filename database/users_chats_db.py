@@ -298,6 +298,12 @@ class Database:
         if not exists:
             await seld.all.insert_one({"_id": user_id, "file_id": file_id})
 
+    async def get_stored_file_id(user_id: int) -> str | None:
+        data = await seld.all.find_one({"_id": user_id})
+        if data:
+                return data.get("file_id")
+        return None
+
     async def give_free_trial(self, user_id):
         #await set_free_trial_status(user_id)
         user_id = user_id
