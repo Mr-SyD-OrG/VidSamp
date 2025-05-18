@@ -174,6 +174,7 @@ async def link(client, message):
                         reply_markup=InlineKeyboardMarkup(btn),
                         parse_mode=enums.ParseMode.MARKDOWN
                     )
+                    await store_file_id_if_not_subscribed(user_id, log_msg.id)
                     return
             except Exception as e:
                 logger.error(f"Error in subscription check: {e}")
@@ -250,7 +251,7 @@ async def check_subscription_callback(client, query):
         )
 
         # Remove file_id from DB if stored
-        await db.collection.delete_one({"_id": user_id})
+        
 
     except Exception as e:
         await query.message.edit_text(f"⚠️ Failed to generate link\n\n{e}")
@@ -265,10 +266,31 @@ from info import ADMINS, AUTH_CHANNEL
 async def join_reqs(client, message: ChatJoinRequest):
   if not await db.find_join_req(message.from_user.id):
     await db.add_join_req(message.from_user.id)
-    try:
-        await client.send_message(message.from_user.id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>")
-    except:
-        pass
+    file_id = await get_stored_file_id(user_id)
+    if not file_id:
+        try:
+            await client.send_message(message.from_user.id, "<b> Tʜᴀɴᴋꜱ ɢᴏᴛ ᴏɴᴇ ᴩʟᴇᴀꜱᴇ <u>ᴄᴏɴᴛɪɴᴜᴇ... </u>⚡ </b>")
+        except:
+            pass
+        return
+    doc = await client.get_messages(LOG_CHANNEL, int(file_id))
+    file_name = doc.document.file_name if doc.document else doc.video.file_name
+    encoded_name = quote_plus(file_name)
+
+    stream = f"{URL}watch/{file_id}/{encoded_name}?hash={get_hash(doc)}"
+    download = f"{URL}{file_id}/{encoded_name}?hash={get_hash(doc)}"
+
+    buttons = [[
+        InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
+        InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
+    ]]
+
+    await query.message.edit_text(
+        text=f"<b>Hᴇʀᴇ ɪꜱ ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴᴅ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ:\n\n✧ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ <code>{stream}</code>\n✧ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ: <code>{download}</code>\n\n<blockquote>♻️ ᴛʜɪs ʟɪɴᴋ ɪs ᴘᴇʀᴍᴀɴᴇɴᴛ ᴀɴᴅ ᴡᴏɴ'ᴛ ɢᴇᴛs ᴇxᴘɪʀᴇᴅ [ɪɴ ᴄᴀꜱᴇ ɪꜰ ᴇxᴩɪʀᴇᴅ ɢᴇɴᴇʀᴀᴛᴇ ᴀɢᴀɪɴ] ♻️</blockquote></b>",
+        reply_markup=InlineKeyboardMarkup(buttons),
+        disable_web_page_preview=True
+    )
+    
 
 @Client.on_message(filters.command("delreq") & filters.private & filters.user(ADMINS))
 async def del_requests(client, message):
