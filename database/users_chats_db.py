@@ -42,6 +42,7 @@ class Database:
         self.users = self.db.uersz
         self.req = self.db.requests
         self.syd = self.db.bots
+        seld.all = self.db.file
         
     async def find_join_req(self, id):
         return bool(await self.req.find_one({'id': id}))
@@ -288,6 +289,14 @@ class Database:
         if user_data:
             return user_data.get("has_free_trial", False)
         return False
+
+    async def remove_stored_file_id(self, user_id: int):
+        await seld.all.delete_one({"_id": user_id})
+
+    async def store_file_id_if_not_subscribed(self, user_id: int, file_id: str):
+        exists = await seld.all.find_one({"_id": user_id})
+        if not exists:
+            await seld.all.insert_one({"_id": user_id, "file_id": file_id})
 
     async def give_free_trial(self, user_id):
         #await set_free_trial_status(user_id)
