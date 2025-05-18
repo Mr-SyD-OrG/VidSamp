@@ -200,7 +200,7 @@ async def link(client, message):
             InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
             InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
         ], [
-            InlineKeyboardButton('! Hᴏᴡ ᴛᴏ ᴏᴘᴇɴ ʟɪɴK !', url="https://t.me/Mod_Moviez_X")
+            InlineKeyboardButton('! Sᴜᴩᴩᴏʀᴛ Uꜱ !', url="https://t.me/Mod_Moviez_X")
         ]]
 
         # Send links to user
