@@ -12,7 +12,7 @@
  pytz 
  aiohttp==3.8.3
  googletrans==3.1.0a0
- #pyrofork
+ pyrofork
 #---master---# 
  #Telethroid==0.0.10 
  PyLeaves==1.0.2 
