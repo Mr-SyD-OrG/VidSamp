@@ -291,15 +291,15 @@ class Database:
         return False
 
     async def remove_stored_file_id(self, user_id: int):
-        await seld.all.delete_one({"_id": user_id})
+        await self.all.delete_one({"_id": user_id})
 
     async def store_file_id_if_not_subscribed(self, user_id: int, file_id: str):
-        exists = await seld.all.find_one({"_id": user_id})
+        exists = await self.all.find_one({"_id": user_id})
         if not exists:
-            await seld.all.insert_one({"_id": user_id, "file_id": file_id})
+            await self.all.insert_one({"_id": user_id, "file_id": file_id})
 
-    async def get_stored_file_id(user_id: int) -> str | None:
-        data = await seld.all.find_one({"_id": user_id})
+    async def get_stored_file_id(self, user_id: int) -> str | None:
+        data = await self.all.find_one({"_id": user_id})
         if data:
                 return data.get("file_id")
         return None
