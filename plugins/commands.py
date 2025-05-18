@@ -206,7 +206,7 @@ async def link(client, message):
 
         # Send links to user
         await message.reply_text(
-            text=f"<b>Here is your download and stream link:</b>",
+            text=f"<b>Hᴇʀᴇ ɪꜱ ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴᴅ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ:\n✧ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ <code>{stream}</code>\n✧ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ: <code>{download}</code>\n\n<blockquote>♻️ ᴛʜɪs ʟɪɴᴋ ɪs ᴘᴇʀᴍᴀɴᴇɴᴛ ᴀɴᴅ ᴡᴏɴ'ᴛ ɢᴇᴛs ᴇxᴘɪʀᴇᴅ [ɪɴ ᴄᴀꜱᴇ ɪꜰ ᴇxᴩɪʀᴇᴅ ɢᴇɴᴇʀᴀᴛᴇ ᴀɢᴀɪɴ] ♻️</blockquote></b>",
             reply_markup=InlineKeyboardMarkup(buttons),
             disable_web_page_preview=True
         )
@@ -251,7 +251,7 @@ async def check_subscription_callback(client, query):
         ]]
 
         await query.message.edit_text(
-            text="<b>Here is your download and stream link:</b>",
+            text=f"<b>Hᴇʀᴇ ɪꜱ ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴᴅ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ:\n✧ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ <code>{stream}</code>\n✧ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ: <code>{download}</code>\n\n<blockquote>♻️ ᴛʜɪs ʟɪɴᴋ ɪs ᴘᴇʀᴍᴀɴᴇɴᴛ ᴀɴᴅ ᴡᴏɴ'ᴛ ɢᴇᴛs ᴇxᴘɪʀᴇᴅ [ɪɴ ᴄᴀꜱᴇ ɪꜰ ᴇxᴩɪʀᴇᴅ ɢᴇɴᴇʀᴀᴛᴇ ᴀɢᴀɪɴ] ♻️</blockquote></b>",
             reply_markup=InlineKeyboardMarkup(buttons),
             disable_web_page_preview=True
         )
