@@ -163,13 +163,14 @@ async def handle_ile(client, message):
         [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
     ]
 
-    await message.reply_to_message.reply_text(
+    await message.reply_text(
         f"<b>Here is your permanent stream & download link:</b>\n\n"
         f"🎬 <code>{stream_url}</code>\n"
         f"📥 <code>{download_url}</code>\n\n"
         f"<i>Link never expires. Bookmark it!</i>",
         reply_markup=InlineKeyboardMarkup(buttons),
-        parse_mode=enums.ParseMode.HTML
+        parse_mode=enums.ParseMode.HTML,
+        quote=True
     )
 
     # 7. Log It
