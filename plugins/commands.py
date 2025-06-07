@@ -156,8 +156,9 @@ async def handle_ile(client, message):
 
     # 6. Send Link Buttons
     buttons = [
-        [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample"),
-         InlineKeyboardButton("Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
+        [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample")],
+        [InlineKeyboardButton("Gᴇɴᴇʀᴀᴛᴇ Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
+        [InlineKeyboardButton("Tʀɪᴍ", callback_data="trim")],
         [InlineKeyboardButton("⚡ Fast Download", url=download_url),
          InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
         [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
