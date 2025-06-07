@@ -103,10 +103,10 @@ async def callback_handler(client, query):
             ffmpeg_sample(full_path, start, 30, sample_path)
             await orig.reply_video(
                 video=sample_path,
-                caption=f"🎞 Sample (30 s from {start}s)",
+                caption=f"Sᴀᴍᴩʟᴇ 30ꜱ (Fʀᴏᴍ {start}s)",
                 quote=True,
                 progress=progress_for_pyrogram,                    # <<< NEW
-                progress_args=("__Uploading Sample__", progress_msg, time.time())  # <<< NEW
+                progress_args=("__Uᴩʟᴏᴀᴅɪɴɢ Sᴀᴍᴩʟᴇ__", progress_msg, time.time())  # <<< NEW
             )
 
         except subprocess.CalledProcessError as e:
