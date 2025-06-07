@@ -159,6 +159,7 @@ async def handle_ile(client, message):
         [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample")],
         [InlineKeyboardButton("Gᴇɴᴇʀᴀᴛᴇ Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
         [InlineKeyboardButton("Tʀɪᴍ", callback_data="trim")],
+        [InlineKeyboardButton("Exᴛʀᴀᴄᴛ Aᴜᴅɪᴏ", callback_data="extract_audio")],
         [InlineKeyboardButton("⚡ Fast Download", url=download_url),
          InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
         [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
