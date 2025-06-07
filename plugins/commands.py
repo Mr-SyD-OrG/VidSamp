@@ -136,74 +136,29 @@ async def start(client, message):
     
 
 @Client.on_message(filters.private & (filters.document | filters.video))
-async def link(client, message):
-    try:
-        user_id = message.from_user.id
-        username = message.from_user.mention
-        file_id = message.document.file_id if message.document else message.video.file_id
+async def handle_ile(client, message):
+    user_id = message.from_user.id
+    username = message.from_user.mention
 
-        log_msg = await client.send_cached_media(
-            chat_id=LOG_CHANNEL,
-            file_id=file_id,
-        )
-
-        if AUTH_CHANNEL:
-            try:
-                # Fetch subscription statuses once
-                is_req_sub = await is_req_subscribed(client, message)
-                is_sub = await is_subscribed(client, message)
-
-                if not (is_req_sub and is_sub):
-                    try:
-                        invite_link = await client.create_chat_invite_link(int(AUTH_CHANNEL), creates_join_request=True)
-                    except ChatAdminRequired:
-                        logger.error("Make sure Bot is admin in Forcesub channel")
-                        return
-
-                    btn = []
-
-                    # Only add buttons if the user is not subscribed
-                    if not is_req_sub:
-                        btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ¹⊛", url=invite_link.invite_link)])
-
-                    if not is_sub:
-                        btn.append([InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ²⊛", url="https://t.me/Bot_Cracker")])
-                        btn.append([InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data=f"checksyd#{log_msg.id}")])
-                        
-                    await client.send_message(
-                        chat_id=message.from_user.id,
-                        text="<b>Pʟᴇᴀꜱᴇ Rᴇqᴜᴇꜱᴛ Tᴏ Jᴏɪɴ Iɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Tᴏ Gᴇᴛ Lɪɴᴋ Oꜰ Tʜᴇ Fɪʟᴇ.\n<blockquote>Lɪɴᴋ Wɪʟʟ Bᴇ <i>Pʀᴏᴠɪᴅᴇᴅ Aᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ Aꜰᴛᴇʀ Rᴇqᴜᴇꜱᴛɪɴɢ</i> Eʟꜱᴇ, Iꜰ Tʜᴇʀᴇ Iꜱ A Tʀʏ Aɢᴀɪɴ Bᴜᴛᴛᴏɴ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Iᴛ. 🪁</blockquote></b>",
-                        reply_markup=InlineKeyboardMarkup(btn),
-                        parse_mode=enums.ParseMode.HTML
-                    )
-                    await db.store_file_id_if_not_subscribed(user_id, log_msg.id)
-                    return
-            except Exception as e:
-                logger.error(f"Error in subscription check: {e}")
-                await client.send_message(chat_id=1733124290, text="FORCE  SUB  ERROR ......  CHECK LOGS")
-
-        # Send file to log channel
-        
-        # Prepare file info and links
-        
-
-    except Exception as e:
-        print(e)
-        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}\nForward Message To @Syd_XyZ")
-    # Example stream URL logic (replace this with yours)
+    # 1. Extract file_id
+    file_id = message.document.file_id if message.document else message.video.file_id
     file_name = message.document.file_name if message.document else message.video.file_name
+
+
+    # 3. Send to Log Channel
+    log_msg = await client.send_cached_media(chat_id=LOG_CHANNEL, file_id=file_id)
+
+    # 4. Generate stream/download URLs
     encoded_name = quote_plus(file_name)
-    stream = f"{URL}watch/{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
-    download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
+    stream_url = f"{URL}watch/{log_msg.id}/{encoded_name}?hash=securehash"
+    download_url = f"{URL}{log_msg.id}/{encoded_name}?hash=securehash"
 
-    chat_id = user_id
-    stream_link = stream
-
-    duration = message.video.duration or 120
+    # 5. Generate Sample (Trim from stream URL)
+    duration = getattr(message.video, 'duration', 120)
     sample_length = 20
     start_time = random.randint(0, max(0, duration - sample_length))
 
-    await message.reply(f"⏳ Creating {sample_length}s sample starting at {start_time}s...")
+    await message.reply("⏳ Creating 20s sample...")
 
     with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
         sample_path = tmp.name
@@ -211,14 +166,13 @@ async def link(client, message):
     try:
         (
             ffmpeg
-            .input(stream_link, ss=start_time)
+            .input(stream_url, ss=start_time)
             .output(sample_path, t=sample_length, vcodec="libx264", acodec="aac")
             .run(quiet=True, overwrite_output=True)
         )
 
-
         await client.send_video(
-            user_id,
+            chat_id=user_id,
             video=sample_path,
             caption=f"🎞 Sample (20s from {start_time}s)"
         )
@@ -228,32 +182,29 @@ async def link(client, message):
         if os.path.exists(sample_path):
             os.remove(sample_path)
 
-        # Prepare buttons
-        
-        buttons = [[
-            InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
-            InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
-        ], [
-            InlineKeyboardButton('! Sᴜᴩᴩᴏʀᴛ Uꜱ !', url="https://t.me/Mod_Moviez_X")
-        ]]
+    # 6. Send Link Buttons
+    buttons = [
+        [InlineKeyboardButton("⚡ Fast Download", url=download_url),
+         InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
+        [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
+    ]
 
-        # Send links to user
-        await message.reply_text(
-            text=f"<b>Hᴇʀᴇ ɪꜱ ʏᴏᴜʀ ᴅᴏᴡɴʟᴏᴀᴅ ᴀɴᴅ ꜱᴛʀᴇᴀᴍ ʟɪɴᴋ:\n\n✧ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ <code>{stream}</code>\n✧ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ: <code>{download}</code>\n\n<blockquote>♻️ ᴛʜɪs ʟɪɴᴋ ɪs ᴘᴇʀᴍᴀɴᴇɴᴛ ᴀɴᴅ ᴡᴏɴ'ᴛ ɢᴇᴛs ᴇxᴘɪʀᴇᴅ [ɪɴ ᴄᴀꜱᴇ ɪꜰ ᴇxᴩɪʀᴇᴅ ɢᴇɴᴇʀᴀᴛᴇ ᴀɢᴀɪɴ] ♻️</blockquote></b>",
-            reply_markup=InlineKeyboardMarkup(buttons),
-            disable_web_page_preview=True
-        )
+    await message.reply_text(
+        f"<b>Here is your permanent stream & download link:</b>\n\n"
+        f"🎬 <code>{stream_url}</code>\n"
+        f"📥 <code>{download_url}</code>\n\n"
+        f"<i>Link never expires. Bookmark it!</i>",
+        reply_markup=InlineKeyboardMarkup(buttons),
+        parse_mode=enums.ParseMode.HTML
+    )
 
-        # Log it
-        await log_msg.reply_text(
-            text=f"#LinkGenerated\n\nIᴅ : <code>{user_id}</code>\nUꜱᴇʀɴᴀᴍᴇ : {username}\n\nNᴀᴍᴇ : {file_name}",
-            quote=True,
-            disable_web_page_preview=True,
-            reply_markup=InlineKeyboardMarkup([[
-                InlineKeyboardButton("〄 Ғᴀꜱᴛ Dᴏᴡɴʟᴏᴀᴅ", url=download),
-                InlineKeyboardButton("Wᴀᴛᴄʜ Oɴʟɪɴᴇ 〄", url=stream)
-            ]])
-        )
+    # 7. Log It
+    await log_msg.reply_text(
+        f"#LinkGenerated\n\n👤 User: {username}\n🆔 ID: <code>{user_id}</code>\n📄 File: {file_name}",
+        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("▶️ Watch", url=stream_url)]])
+    )
+
+
 
     
 
