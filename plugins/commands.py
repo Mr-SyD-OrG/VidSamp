@@ -191,6 +191,9 @@ async def link(client, message):
         download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
 
 
+    except Exception as e:
+        print(e)
+        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}\nForward Message To @Syd_XyZ")
     # Example stream URL logic (replace this with yours)
     chat_id = user_id
     stream_link = stream
@@ -250,10 +253,7 @@ async def link(client, message):
             ]])
         )
 
-    except Exception as e:
-        print(e)
-        await message.reply_text(f"⚠️ SOMETHING WENT WRONG \n\n{e}\nForward Message To @Syd_XyZ")
-
+    
 
 
 @Client.on_callback_query(filters.regex(r"checksyd"))
