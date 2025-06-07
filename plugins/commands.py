@@ -17,6 +17,12 @@ from utils import get_settings, get_size, is_req_subscribed, is_subscribed, save
 from database.connections_mdb import active_connection
 # from plugins.pm_filter import ENABLE_SHORTLINK
 import re, asyncio, os, sys
+import ffmpeg
+import random
+import tempfile
+import os
+
+
 import json
 from util.file_properties import get_name, get_hash, get_media_file_size
 
@@ -184,7 +190,39 @@ async def link(client, message):
         stream = f"{URL}watch/{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
         download = f"{URL}{str(log_msg.id)}/{encoded_name}?hash={get_hash(log_msg)}"
 
-   
+
+    # Example stream URL logic (replace this with yours)
+    chat_id = user_id
+    stream_link = stream
+
+    duration = message.reply_to_message.video.duration or 120
+    sample_length = 20
+    start_time = random.randint(0, max(0, duration - sample_length))
+
+    await message.reply(f"⏳ Creating {sample_length}s sample starting at {start_time}s...")
+
+    with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
+        sample_path = tmp.name
+
+    try:
+        (
+            ffmpeg
+            .input(stream_link, ss=start_time)
+            .output(sample_path, t=sample_length, c="copy")
+            .run(quiet=True, overwrite_output=True)
+        )
+
+        await client.send_video(
+            user_id,
+            video=sample_path,
+            caption=f"🎞 Sample (20s from {start_time}s)"
+        )
+    except Exception as e:
+        await message.reply(f"❌ Error creating sample:\n`{e}`")
+    finally:
+        if os.path.exists(sample_path):
+            os.remove(sample_path)
+
         # Prepare buttons
         
         buttons = [[
