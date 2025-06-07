@@ -83,7 +83,7 @@ async def give_filter(client, message):
     )
     return
     
-@Client.on_message(filters.private & filters.text & filters.incoming)
+#@Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
     content = message.text
     if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
