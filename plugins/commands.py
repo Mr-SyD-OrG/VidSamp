@@ -195,7 +195,7 @@ async def link(client, message):
     chat_id = user_id
     stream_link = stream
 
-    duration = message.reply_to_message.video.duration or 120
+    duration = message.video.duration or 120
     sample_length = 20
     start_time = random.randint(0, max(0, duration - sample_length))
 
