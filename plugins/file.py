@@ -88,6 +88,7 @@ async def callback_handler(client, query):
                 progress=progress_for_pyrogram,
                 progress_args=("__Downloading…__", progress_msg, time.time())
             )
+            await progress_msg.edit("Gᴇɴᴇʀᴀᴛɪɴɢ...")
             start = random.randint(0, max(0, duration - 30))
             ffmpeg_sample(full_path, start, 30, sample_path)
             await orig.reply_video(
