@@ -163,7 +163,7 @@ async def handle_ile(client, message):
     with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
         sample_path = tmp.name
 
-        try:
+    try:
         process = (
             ffmpeg
             .input(stream_url, ss=start_time)
