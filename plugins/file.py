@@ -93,8 +93,11 @@ async def callback_handler(client, query):
             await orig.reply_video(
                 video=sample_path,
                 caption=f"🎞 Sample (30 s from {start}s)",
-                quote=True
+                quote=True,
+                progress=progress_for_pyrogram,                    # <<< NEW
+                progress_args=("__Uploading Sample__", progress_msg, time.time())  # <<< NEW
             )
+
         except subprocess.CalledProcessError as e:
             await query.message.reply(
                 f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
@@ -161,5 +164,93 @@ async def callback_handler(client, query):
             if os.path.exists(full_path):
                 os.remove(full_path)
             for p in paths:
+                if os.path.exists(p):
+                    os.remove(p)
+
+    elif query.data == "trim":
+        await query.answer()
+        prompt1 = await orig.reply(
+            "✂️ **Trim:**\nSend start time in `m:s` or `h:m:s` format:",
+            quote=True,
+            parse_mode="md"
+        )
+
+        # Wait for start-time reply
+        try:
+            start_msg = await client.listen(
+                chat_id=query.from_user.id,
+                filters=filters.reply & filters.text,
+                timeout=90
+            )
+        except asyncio.TimeoutError:
+            await prompt1.edit("⏰ Timed-out. Trim cancelled.", parse_mode="md")
+            return
+
+        start_sec = parse_hms(start_msg.text)
+        if start_sec is None:
+            return await start_msg.reply("❌ Invalid time format. Trim cancelled.", quote=True)
+
+        # Ask for end time
+        prompt2 = await start_msg.reply(
+            "Now send **end time**:", quote=True, parse_mode="md"
+        )
+        try:
+            end_msg = await client.listen(
+                chat_id=query.from_user.id,
+                filters=filters.reply & filters.text,
+                timeout=90
+            )
+        except asyncio.TimeoutError:
+            await prompt2.edit("⏰ Timed-out. Trim cancelled.", parse_mode="md")
+            return
+        end_sec = parse_hms(end_msg.text)
+        if end_sec is None:
+            return await end_msg.reply("❌ Invalid time format. Trim cancelled.", quote=True)
+
+        # Validation
+        if end_sec <= start_sec:
+            return await end_msg.reply("⚠️ End time must be greater than start time.", quote=True)
+        if end_sec > duration:
+            return await end_msg.reply("⚠️ End time exceeds video length.", quote=True)
+        if end_sec - start_sec > 600:
+            return await end_msg.reply("⚠️ Segment must be ≤ 10 minutes.", quote=True)
+
+        # Start processing
+        ack = await end_msg.reply("📥 Downloading for trim…", quote=True)
+        with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
+            full_path = tmp.name
+        trimmed_path = full_path.replace(".mp4", "_trimmed.mp4")
+        try:
+            await client.download_media(
+                message=media,
+                file_name=full_path,
+                progress=progress_for_pyrogram,
+                progress_args=("__Downloading…__", ack, time.time())
+            )
+
+            # First try a fast copy
+            cmd = [
+                "ffmpeg", "-ss", str(start_sec), "-to", str(end_sec),
+                "-i", full_path, "-c", "copy", "-y", trimmed_path
+            ]
+            proc = subprocess.run(cmd, capture_output=True)
+            if proc.returncode != 0:  # fallback re-encode
+                cmd = [
+                    "ffmpeg", "-ss", str(start_sec), "-to", str(end_sec),
+                    "-i", full_path, "-c:v", "libx264", "-c:a", "aac",
+                    "-preset", "medium", "-y", trimmed_path
+                ]
+                subprocess.run(cmd, check=True, capture_output=True)
+
+            await orig.reply_video(
+                video=trimmed_path,
+                caption=f"✂️ Trimmed segment {start_msg.text} → {end_msg.text}",
+                quote=True
+            )
+        except subprocess.CalledProcessError as e:
+            await ack.edit(f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
+                           parse_mode=enums.ParseMode.HTML)
+        finally:
+            for p in (full_path, trimmed_path):
                 if os.path.exists(p):
                     os.remove(p)
