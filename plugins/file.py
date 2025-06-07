@@ -1,6 +1,6 @@
 import math, time, random, os, tempfile, subprocess
 from pyrogram import Client, enums
-from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 
 # ── helper UI builders ─────────────────────────────────────────────────────────
 def build_even_keyboard() -> InlineKeyboardMarkup:
@@ -19,7 +19,6 @@ def generate_progress_bar(percentage: float) -> str:
     return filled + empty
 
 def humanbytes(size: int) -> str:
-    # simple IEC units
     power, unit = 1024, 0
     units = ["B", "KiB", "MiB", "GiB", "TiB"]
     while size >= power and unit < len(units) - 1:
@@ -34,7 +33,7 @@ def calculate_times(diff, current, total, speed):
 
 async def progress_for_pyrogram(current, total, ud_type, message, start):
     now, diff = time.time(), time.time() - start
-    if current == total or round(diff % 5.00) == 0:
+    if int(diff) % 5 == 0 or current == total:
         percentage = current * 100 / total
         speed      = current / diff if diff else 0
         _, eta, _  = calculate_times(diff, current, total, speed)
@@ -49,8 +48,8 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
         )
         try:
             await message.edit(text=text, parse_mode="md")
-        except:
-            pass
+        except Exception as e:
+            print("Progress update failed:", e)
 
 # ── FFmpeg helpers ─────────────────────────────────────────────────────────────
 def ffmpeg_sample(src: str, start: int, length: int, dst: str):
@@ -67,38 +66,34 @@ def ffmpeg_screenshot(src: str, sec: int, dst: str):
 # ── main callback handler ──────────────────────────────────────────────────────
 @Client.on_callback_query()
 async def callback_handler(client, query):
-    # must be a reply to a media message
     orig = query.message.reply_to_message
     if not orig or not (orig.video or orig.document):
         return await query.answer("❌ Please reply to a media file.", show_alert=True)
 
-    media    = orig.video or orig.document
+    media = orig.video or orig.document
     duration = getattr(media, "duration", 120) or 120
 
-    # ─ 1. 30-second sample ────────────────────────────────────────────────────
+    # ─ 1. 30-second sample
     if query.data == "sample":
         await query.answer("Generating sample…", show_alert=False)
-
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
             full_path = tmp.name
         sample_path = full_path.replace(".mp4", "_sample.mp4")
 
         try:
-            # download with progress
+            progress_msg = await query.message.reply("📥 Starting download...", quote=True)
             await client.download_media(
-                message = media,
-                file_name = full_path,
-                progress = progress_for_pyrogram,
-                progress_args = ("__Downloading…__", query.message, time.time())
+                message=media,
+                file_name=full_path,
+                progress=progress_for_pyrogram,
+                progress_args=("__Downloading…__", progress_msg, time.time())
             )
-
             start = random.randint(0, max(0, duration - 30))
             ffmpeg_sample(full_path, start, 30, sample_path)
-
             await orig.reply_video(
-                video   = sample_path,
-                caption = f"🎞 Sample (30 s from {start}s)",
-                quote   = True
+                video=sample_path,
+                caption=f"🎞 Sample (30 s from {start}s)",
+                quote=True
             )
         except subprocess.CalledProcessError as e:
             await query.message.reply(
@@ -111,16 +106,16 @@ async def callback_handler(client, query):
                 if os.path.exists(f):
                     os.remove(f)
 
-    # ─ 2. ask for second ──────────────────────────────────────────────────────
+    # ─ 2. Ask for screenshot count
     elif query.data == "screenshot":
         await query.answer()
         await orig.reply(
-            "🖼 Choose second for screenshot:",
-            reply_markup = build_even_keyboard(),
-            quote = True
+            "🖼 Choose number of screenshots to generate:",
+            reply_markup=build_even_keyboard(),
+            quote=True
         )
 
-    # ─ 3.
+    # ─ 3. Take screenshots
     elif query.data.startswith("getshot#"):
         count = int(query.data.split("#")[1])
         await query.answer(f"Taking {count} random screenshots…", show_alert=False)
@@ -129,31 +124,31 @@ async def callback_handler(client, query):
             full_path = tmp.name
 
         try:
-            # Download media with progress
+            progress_msg = await query.message.reply("📥 Starting download...", quote=True)
             await client.download_media(
-                message = media,
-                file_name = full_path,
-                progress = progress_for_pyrogram,
-                progress_args = ("__Downloading…__", query.message, time.time())
+                message=media,
+                file_name=full_path,
+                progress=progress_for_pyrogram,
+                progress_args=("__Downloading…__", progress_msg, time.time())
             )
 
-            # Generate random timestamps
             timestamps = sorted(random.sample(range(2, max(duration - 1, 3)), count))
             media_group = []
+            paths = []
 
             for idx, ts in enumerate(timestamps, start=1):
                 shot_path = full_path.replace(".mp4", f"_s{idx}.jpg")
                 ffmpeg_screenshot(full_path, ts, shot_path)
-                media_group.append({
-                    "type": "photo",
-                    "media": shot_path,
-                    "caption": f"📸 Screenshot {idx}/{count} at {ts}s" if idx == 1 else ""
-                })
+                paths.append(shot_path)
+                media_group.append(InputMediaPhoto(
+                    media=shot_path,
+                    caption=f"📸 Screenshot {idx}/{count} at {ts}s" if idx == 1 else None
+                ))
 
             await client.send_media_group(
-                chat_id = query.message.chat.id,
-                media = media_group,
-                reply_to_message_id = orig.id
+                chat_id=query.message.chat.id,
+                media=media_group,
+                reply_to_message_id=orig.id
             )
 
         except subprocess.CalledProcessError as e:
@@ -165,8 +160,6 @@ async def callback_handler(client, query):
         finally:
             if os.path.exists(full_path):
                 os.remove(full_path)
-            for file in os.listdir(tempfile.gettempdir()):
-                if file.startswith(os.path.basename(full_path).replace(".mp4", "_s")) and file.endswith(".jpg"):
-                    try: os.remove(os.path.join(tempfile.gettempdir(), file))
-                    except: pass
-
+            for p in paths:
+                if os.path.exists(p):
+                    os.remove(p)
