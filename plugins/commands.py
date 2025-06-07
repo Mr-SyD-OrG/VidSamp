@@ -164,40 +164,35 @@ async def handle_ile(client, message):
         sample_path = tmp.name
 
     try:
-        process = (
+        headers = "Range: bytes=0-\nUser-Agent: Mozilla/5.0"
+        
+        (
             ffmpeg
-            .input(stream_url, ss=start_time)
-            .output(
-                sample_path,
-                t=sample_length,
-                vcodec="libx264",
-                acodec="aac"
-            )
-            .global_args('-hide_banner', '-loglevel', 'error')
-            .run_async(pipe_stdout=True, pipe_stderr=True)
+            .input(stream_link, ss=start_time, headers=headers)
+            .output(sample_path, t=sample_length, vcodec="libx264", acodec="aac")
+            .overwrite_output()
+            .global_args('-loglevel', 'error')
+            .run()
         )
-        stdout, stderr = process.communicate()
-
-        if process.returncode != 0:
-            err_output = stderr.decode() if stderr else "No error output captured."
-            await message.reply_text(
-                f"❌ ffmpeg failed (exit code {process.returncode}):\n\n<code>{err_output}</code>",
-                parse_mode=enums.ParseMode.HTML
-            )
-            return
 
         await client.send_video(
-            chat_id=user_id,
+            user_id,
             video=sample_path,
-            caption=f"🎞 Sample ({sample_length}s from {start_time}s)"
+            caption=f"🎞 Sample (20s from {start_time}s)"
         )
 
+    except ffmpeg.Error as e:
+        err_output = e.stderr.decode() if e.stderr else str(e)
+        await message.reply(
+            f"❌ Error creating sample:\n\n<code>{err_output}</code>",
+            parse_mode=enums.ParseMode.HTML
+        )
     except Exception as e:
         await message.reply_text(f"❌ Exception during sample creation:\n<code>{e}</code>", parse_mode=enums.ParseMode.HTML)
 
-   # finally:
-       # if os.path.exists(sample_path):
-            #os.remove(sample_path)
+    finally:
+        if os.path.exists(sample_path):
+            os.remove(sample_path)
 
     # 6. Send Link Buttons
     buttons = [
