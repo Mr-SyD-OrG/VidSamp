@@ -212,9 +212,10 @@ async def link(client, message):
         (
             ffmpeg
             .input(stream_link, ss=start_time)
-            .output(sample_path, t=sample_length, c="copy")
+            .output(sample_path, t=sample_length, vcodec="libx264", acodec="aac")
             .run(quiet=True, overwrite_output=True)
         )
+
 
         await client.send_video(
             user_id,
