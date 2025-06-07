@@ -1,4 +1,4 @@
-import math, time, random, os, tempfile, subprocess
+import math, time, random, os, tempfile, subprocess, asyncio
 from pyrogram import Client, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 from utils import is_req_subscribed
@@ -203,7 +203,7 @@ async def callback_handler(client, query):
 
     elif query.data == "trim":
         await query.answer()
-        prompt1 = await orig.reply(
+        prompt1 = await query.message.reply(
             "✂️ **Trim:**\nSend start time in `m:s` or `h:m:s` format:",
             quote=True,
             parse_mode="md"
