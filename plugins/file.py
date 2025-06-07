@@ -178,10 +178,7 @@ async def callback_handler(client, query):
                 if os.path.exists(p):
                     os.remove(p)
 
-    elif query.data == "checksub":
 
-
-        
     elif query.data == "trim":
         await query.answer()
         prompt1 = await orig.reply(
@@ -269,3 +266,23 @@ async def callback_handler(client, query):
             for p in (full_path, trimmed_path):
                 if os.path.exists(p):
                     os.remove(p)
+
+
+    elif query.data == "checksub":
+        await query.answer("🔍 Checking access…", show_alert=False)
+
+        buttons = [
+            [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample")],
+            [InlineKeyboardButton("Gᴇɴᴇʀᴀᴛᴇ Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
+            [InlineKeyboardButton("Tʀɪᴍ", callback_data="trim")],
+            [InlineKeyboardButton("⚡ Fast Download", url=download_url),
+             InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
+            [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
+        ]
+
+        await query.message.reply(
+            "✅ You have access. Choose an action below:",
+            reply_markup=InlineKeyboardMarkup(buttons),
+            quote=True
+        )
+
