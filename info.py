@@ -63,7 +63,7 @@ NO_RESULTS_MSG = bool(environ.get("NO_RESULTS_MSG", True)) # True if you want no
 DATABASE_URI = environ.get('DATABASE_URI', "")
 DATABASE_URL = environ.get('DATABASE_URI', "")
 CLONE_DB_URI = environ.get('CLONE_DB_URI', "")
-DATABASE_NAME = environ.get('DATABASE_NAME', "")
+DATABASE_NAME = environ.get('DATABASE_NAME', "Cluster0")
 COLLECTION_NAME = environ.get('COLLECTION_NAME', 'Telegram_files')
 
 # Verify
