@@ -47,7 +47,7 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
             f"ETA: `{round(eta)} s`"
         )
         try:
-            await message.edit(text=text, parse_mode="md")
+            await message.edit(text=text)
         except Exception as e:
             print("Progress update failed:", e)
 
