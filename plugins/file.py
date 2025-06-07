@@ -1,7 +1,7 @@
 import math, time, random, os, tempfile, subprocess
 from pyrogram import Client, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
-
+from utils import is_req_subscribed
 # ── helper UI builders ─────────────────────────────────────────────────────────
 def build_even_keyboard() -> InlineKeyboardMarkup:
     rows, row = [], []
@@ -66,6 +66,16 @@ def ffmpeg_screenshot(src: str, sec: int, dst: str):
 # ── main callback handler ──────────────────────────────────────────────────────
 @Client.on_callback_query()
 async def callback_handler(client, query):
+    if AUTH_CHANNEL and not await is_req_subscribed(client, query):
+        btn = [[InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ⊛", url=invite_link.invite_link)],
+               [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data="checksub")]]
+
+        await query.message.reply(
+            text="Jᴏɪɴ Oᴜʀ Uᴘᴅᴀᴛᴇꜱ Cʜᴀɴɴᴇʟ Aɴᴅ Tʜᴇɴ Cʟɪᴄᴋ Oɴ Tʀʏ Aɢᴀɪɴ Tᴏ Cᴏɴᴛɪɴᴜᴇ.",
+            reply_markup=InlineKeyboardMarkup(btn),
+            parse_mode=enums.ParseMode.MARKDOWN
+        )
+        return
     orig = query.message.reply_to_message
     if not orig or not (orig.video or orig.document):
         return await query.answer("❌ Please reply to a media file.", show_alert=True)
@@ -168,6 +178,10 @@ async def callback_handler(client, query):
                 if os.path.exists(p):
                     os.remove(p)
 
+    elif query.data == "checksub":
+
+
+        
     elif query.data == "trim":
         await query.answer()
         prompt1 = await orig.reply(
