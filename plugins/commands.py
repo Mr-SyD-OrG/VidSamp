@@ -156,14 +156,14 @@ async def handle_ile(client, message):
 
     # 6. Send Link Buttons
     buttons = [
-        [InlineKeyboardButton("⚡ Fast Download", callback_data="sample"),
-         InlineKeyboardButton("▶️ Watch Online", callback_data="screenshot")],
+        [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample"),
+         InlineKeyboardButton("Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
         [InlineKeyboardButton("⚡ Fast Download", url=download_url),
          InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
         [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
     ]
 
-    await message.reply_text(
+    await message.reply_to_message.reply_text(
         f"<b>Here is your permanent stream & download link:</b>\n\n"
         f"🎬 <code>{stream_url}</code>\n"
         f"📥 <code>{download_url}</code>\n\n"
