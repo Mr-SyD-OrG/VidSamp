@@ -150,8 +150,8 @@ async def handle_ile(client, message):
 
     # 4. Generate stream/download URLs
     encoded_name = quote_plus(file_name)
-    stream_url = f"{URL}watch/{log_msg.id}/{encoded_name}?hash=securehash"
-    download_url = f"{URL}{log_msg.id}/{encoded_name}?hash=securehash"
+    stream_url = f"{URL}watch/{log_msg.id}/{encoded_name}?hash={get_hash(log_msg)}"
+    download_url = f"{URL}{log_msg.id}/{encoded_name}?hash={get_hash(log_msg)}"
 
     # 5. Generate Sample (Trim from stream URL)
     duration = getattr(message.video, 'duration', 120)
