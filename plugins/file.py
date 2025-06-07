@@ -1,19 +1,59 @@
-from pyrogram import Client, filters, enums
+import math, time, random, os, tempfile, subprocess
+from pyrogram import Client, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
-import tempfile, subprocess, os, random
 
+# ── helper UI builders ─────────────────────────────────────────────────────────
 def build_even_keyboard() -> InlineKeyboardMarkup:
-    """Return 2,4,…,20 buttons in rows of five."""
     rows, row = [], []
     for sec in range(2, 22, 2):
         row.append(InlineKeyboardButton(str(sec), callback_data=f"getshot#{sec}"))
         if len(row) == 5:
             rows.append(row); row = []
-    if row: rows.append(row)
+    if row:
+        rows.append(row)
     return InlineKeyboardMarkup(rows)
 
+def generate_progress_bar(percentage: float) -> str:
+    filled = "⬢" * math.floor(percentage / 5)
+    empty  = "⬡" * (20 - math.floor(percentage / 5))
+    return filled + empty
+
+def humanbytes(size: int) -> str:
+    # simple IEC units
+    power, unit = 1024, 0
+    units = ["B", "KiB", "MiB", "GiB", "TiB"]
+    while size >= power and unit < len(units) - 1:
+        size /= power; unit += 1
+    return f"{size:.2f} {units[unit]}"
+
+def calculate_times(diff, current, total, speed):
+    if speed == 0:
+        return diff, 0, ""
+    time_to_completion = (total - current) / speed
+    return diff, time_to_completion, time_to_completion + diff
+
+async def progress_for_pyrogram(current, total, ud_type, message, start):
+    now, diff = time.time(), time.time() - start
+    if current == total or round(diff % 5.00) == 0:
+        percentage = current * 100 / total
+        speed      = current / diff if diff else 0
+        _, eta, _  = calculate_times(diff, current, total, speed)
+
+        bar = generate_progress_bar(percentage)
+        text = (
+            f"{ud_type}\n\n"
+            f"{bar} `{percentage:.2f}%`\n"
+            f"**{humanbytes(current)} / {humanbytes(total)}** "
+            f"at **{humanbytes(speed)}/s**\n"
+            f"ETA: `{round(eta)} s`"
+        )
+        try:
+            await message.edit(text=text, parse_mode="md")
+        except:
+            pass
+
+# ── FFmpeg helpers ─────────────────────────────────────────────────────────────
 def ffmpeg_sample(src: str, start: int, length: int, dst: str):
-    """Extract sample clip of <length>s from <start>s in <src> to <dst>."""
     cmd = [
         "ffmpeg", "-ss", str(start), "-i", src, "-t", str(length),
         "-c:v", "libx264", "-c:a", "aac", "-preset", "ultrafast", "-y", dst
@@ -21,79 +61,99 @@ def ffmpeg_sample(src: str, start: int, length: int, dst: str):
     subprocess.run(cmd, check=True, capture_output=True)
 
 def ffmpeg_screenshot(src: str, sec: int, dst: str):
-    """Take screenshot at <sec>s from <src>."""
-    cmd = [
-        "ffmpeg", "-ss", str(sec), "-i", src, "-vframes", "1", "-q:v", "2", "-y", dst
-    ]
+    cmd = ["ffmpeg", "-ss", str(sec), "-i", src, "-vframes", "1", "-q:v", "2", "-y", dst]
     subprocess.run(cmd, check=True, capture_output=True)
 
+# ── main callback handler ──────────────────────────────────────────────────────
 @Client.on_callback_query()
-async def callback_hadler(client, query):
-    if not query.message.reply_to_message or not (
-        query.message.reply_to_message.video or query.message.reply_to_message.document
-    ):
+async def callback_handler(client, query):
+    # must be a reply to a media message
+    orig = query.message.reply_to_message
+    if not orig or not (orig.video or orig.document):
         return await query.answer("❌ Please reply to a media file.", show_alert=True)
 
-    media = query.message.reply_to_message.video or query.message.reply_to_message.document
-    duration = getattr(media, 'duration', 120) or 120  # fallback if not video
+    media    = orig.video or orig.document
+    duration = getattr(media, "duration", 120) or 120
 
-    # ── 1️⃣  Handle "sample"
+    # ─ 1. 30-second sample ────────────────────────────────────────────────────
     if query.data == "sample":
         await query.answer("Generating sample…", show_alert=False)
 
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
-            file_path = tmp.name
+            full_path = tmp.name
+        sample_path = full_path.replace(".mp4", "_sample.mp4")
 
-        sample_path = file_path.replace(".mp4", "_sample.mp4")
         try:
-            await media.download(file_path)
+            # download with progress
+            await client.download_media(
+                message = media,
+                file_name = full_path,
+                progress = progress_for_pyrogram,
+                progress_args = ("__Downloading…__", query.message, time.time())
+            )
+
             start = random.randint(0, max(0, duration - 30))
-            ffmpeg_sample(file_path, start, 30, sample_path)
-            await client.send_video(
-                chat_id=query.from_user.id,
-                video=sample_path,
-                caption=f"🎞 Sample (30s from {start}s)"
+            ffmpeg_sample(full_path, start, 30, sample_path)
+
+            await orig.reply_video(
+                video   = sample_path,
+                caption = f"🎞 Sample (30 s from {start}s)",
+                quote   = True
             )
         except subprocess.CalledProcessError as e:
             await query.message.reply(
                 f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
-                parse_mode=enums.ParseMode.HTML
+                parse_mode=enums.ParseMode.HTML,
+                quote=True
             )
         finally:
-            for f in (file_path, sample_path):
-                if os.path.exists(f): os.remove(f)
+            for f in (full_path, sample_path):
+                if os.path.exists(f):
+                    os.remove(f)
 
-    # ── 2️⃣  Handle "screenshot"
+    # ─ 2. ask for second ──────────────────────────────────────────────────────
     elif query.data == "screenshot":
         await query.answer()
-        await query.message.reply("🖼 Choose second for screenshot:",
-            reply_markup=build_even_keyboard())
+        await orig.reply(
+            "🖼 Choose second for screenshot:",
+            reply_markup = build_even_keyboard(),
+            quote = True
+        )
 
-    # ── 3️⃣  Handle "getshot#<sec>"
+    # ─ 3. take screenshot ────────────────────────────────────────────────────
     elif query.data.startswith("getshot#"):
         sec = int(query.data.split("#")[1])
-        await query.answer(f"Generating screenshot at {sec}s…", show_alert=False)
+        await query.answer(f"Grabbing frame at {sec}s…", show_alert=False)
 
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
-            file_path = tmp.name
-        shot_path = file_path.replace(".mp4", ".jpg")
+            full_path = tmp.name
+        shot_path = full_path.replace(".mp4", ".jpg")
 
         try:
-            await media.download(file_path)
-            ffmpeg_screenshot(file_path, sec, shot_path)
-            await client.send_photo(
-                chat_id=query.from_user.id,
-                photo=shot_path,
-                caption=f"🖼 Screenshot at {sec}s"
+            await client.download_media(
+                message = media,
+                file_name = full_path,
+                progress = progress_for_pyrogram,
+                progress_args = ("__Downloading…__", query.message, time.time())
+            )
+
+            ffmpeg_screenshot(full_path, sec, shot_path)
+
+            await orig.reply_photo(
+                photo   = shot_path,
+                caption = f"🖼 Screenshot at {sec}s",
+                quote   = True
             )
         except subprocess.CalledProcessError as e:
             await query.message.reply(
                 f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
-                parse_mode=enums.ParseMode.HTML
+                parse_mode=enums.ParseMode.HTML,
+                quote=True
             )
         finally:
-            for f in (file_path, shot_path):
-                if os.path.exists(f): os.remove(f)
+            for f in (full_path, shot_path):
+                if os.path.exists(f):
+                    os.remove(f)
 
     else:
         await query.answer("Unknown command.", show_alert=True)
