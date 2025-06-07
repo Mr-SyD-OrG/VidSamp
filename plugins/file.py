@@ -108,6 +108,7 @@ async def callback_handler(client, query):
                 progress=progress_for_pyrogram,                    # <<< NEW
                 progress_args=("__Uᴩʟᴏᴀᴅɪɴɢ Sᴀᴍᴩʟᴇ__", progress_msg, time.time())  # <<< NEW
             )
+            await progress_msg.delete()
 
         except subprocess.CalledProcessError as e:
             await query.message.reply(
