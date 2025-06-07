@@ -120,16 +120,16 @@ async def callback_handler(client, query):
             quote = True
         )
 
-    # ─ 3. take screenshot ────────────────────────────────────────────────────
+    # ─ 3.
     elif query.data.startswith("getshot#"):
-        sec = int(query.data.split("#")[1])
-        await query.answer(f"Grabbing frame at {sec}s…", show_alert=False)
+        count = int(query.data.split("#")[1])
+        await query.answer(f"Taking {count} random screenshots…", show_alert=False)
 
         with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
             full_path = tmp.name
-        shot_path = full_path.replace(".mp4", ".jpg")
 
         try:
+            # Download media with progress
             await client.download_media(
                 message = media,
                 file_name = full_path,
@@ -137,13 +137,25 @@ async def callback_handler(client, query):
                 progress_args = ("__Downloading…__", query.message, time.time())
             )
 
-            ffmpeg_screenshot(full_path, sec, shot_path)
+            # Generate random timestamps
+            timestamps = sorted(random.sample(range(2, max(duration - 1, 3)), count))
+            media_group = []
 
-            await orig.reply_photo(
-                photo   = shot_path,
-                caption = f"🖼 Screenshot at {sec}s",
-                quote   = True
+            for idx, ts in enumerate(timestamps, start=1):
+                shot_path = full_path.replace(".mp4", f"_s{idx}.jpg")
+                ffmpeg_screenshot(full_path, ts, shot_path)
+                media_group.append({
+                    "type": "photo",
+                    "media": shot_path,
+                    "caption": f"📸 Screenshot {idx}/{count} at {ts}s" if idx == 1 else ""
+                })
+
+            await client.send_media_group(
+                chat_id = query.message.chat.id,
+                media = media_group,
+                reply_to_message_id = orig.id
             )
+
         except subprocess.CalledProcessError as e:
             await query.message.reply(
                 f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
@@ -151,9 +163,10 @@ async def callback_handler(client, query):
                 quote=True
             )
         finally:
-            for f in (full_path, shot_path):
-                if os.path.exists(f):
-                    os.remove(f)
+            if os.path.exists(full_path):
+                os.remove(full_path)
+            for file in os.listdir(tempfile.gettempdir()):
+                if file.startswith(os.path.basename(full_path).replace(".mp4", "_s")) and file.endswith(".jpg"):
+                    try: os.remove(os.path.join(tempfile.gettempdir(), file))
+                    except: pass
 
-    else:
-        await query.answer("Unknown command.", show_alert=True)
