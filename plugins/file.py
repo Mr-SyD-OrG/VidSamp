@@ -1,5 +1,5 @@
 import math, time, random, os, tempfile, subprocess, asyncio
-from pyrogram import Client, enums
+from pyrogram import Client, enums, filters
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 from utils import is_req_subscribed
 from info import AUTH_CHANNEL
@@ -203,13 +203,11 @@ async def callback_handler(client, query):
 
     elif query.data == "trim":
         await query.answer()
-        prompt1 = await query.message.reply(
+        prompt1 = await orig.reply(
             "✂️ **Trim:**\nSend start time in `m:s` or `h:m:s` format:",
-            quote=True,
-            parse_mode="md"
+            quote=True
         )
 
-        # Wait for start-time reply
         try:
             start_msg = await client.listen(
                 chat_id=query.from_user.id,
