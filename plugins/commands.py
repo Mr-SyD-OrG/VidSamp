@@ -168,7 +168,7 @@ async def handle_ile(client, message):
         
         (
             ffmpeg
-            .input(stream_link, ss=start_time, headers=headers)
+            .input(stream_url, ss=start_time, headers=headers)
             .output(sample_path, t=sample_length, vcodec="libx264", acodec="aac")
             .overwrite_output()
             .global_args('-loglevel', 'error')
