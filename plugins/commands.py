@@ -140,12 +140,10 @@ async def handle_ile(client, message):
     user_id = message.from_user.id
     username = message.from_user.mention
 
-    # 1. Extract file_id
     file_id = message.document.file_id if message.document else message.video.file_id
     file_name = message.document.file_name if message.document else message.video.file_name
 
 
-    # 3. Send to Log Channel
     log_msg = await client.send_cached_media(chat_id=LOG_CHANNEL, file_id=file_id)
 
     # 4. Generate stream/download URLs
@@ -153,49 +151,13 @@ async def handle_ile(client, message):
     stream_url = f"{URL}watch/{log_msg.id}/{encoded_name}?hash={get_hash(log_msg)}"
     download_url = f"{URL}{log_msg.id}/{encoded_name}?hash={get_hash(log_msg)}"
 
-    # 5. Generate Sample (Trim from stream URL)
-    duration = getattr(message.video, 'duration', 120)
-    sample_length = 20
-    start_time = random.randint(0, max(0, duration - sample_length))
+ 
 
-    await message.reply("⏳ Creating 20s sample...")
-
-    with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
-        sample_path = tmp.name
-
-    try:
-        headers = "Range: bytes=0-\nUser-Agent: Mozilla/5.0"
-        
-        (
-            ffmpeg
-            .input(stream_url, ss=start_time, headers=headers)
-            .output(sample_path, t=sample_length, vcodec="libx264", acodec="aac")
-            .overwrite_output()
-            .global_args('-loglevel', 'error')
-            .run()
-        )
-
-        await client.send_video(
-            user_id,
-            video=sample_path,
-            caption=f"🎞 Sample (20s from {start_time}s)"
-        )
-
-    except ffmpeg.Error as e:
-        err_output = e.stderr.decode() if e.stderr else str(e)
-        await message.reply(
-            f"❌ Error creating sample:\n\n<code>{err_output}</code>",
-            parse_mode=enums.ParseMode.HTML
-        )
-    except Exception as e:
-        await message.reply_text(f"❌ Exception during sample creation:\n<code>{e}</code>", parse_mode=enums.ParseMode.HTML)
-
-    finally:
-        if os.path.exists(sample_path):
-            os.remove(sample_path)
 
     # 6. Send Link Buttons
     buttons = [
+        [InlineKeyboardButton("⚡ Fast Download", callback_data="sample"),
+         InlineKeyboardButton("▶️ Watch Online", callback_data="screenshot")],
         [InlineKeyboardButton("⚡ Fast Download", url=download_url),
          InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
         [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
