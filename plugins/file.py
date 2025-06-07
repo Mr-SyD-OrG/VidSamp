@@ -200,6 +200,49 @@ async def callback_handler(client, query):
                 if os.path.exists(p):
                     os.remove(p)
 
+    elif query.data == "extract_audio":
+        await query.answer("🎧 Extracting audio…", show_alert=False)
+
+        orig = query.message.reply_to_message
+        if not orig or not (orig.video or orig.document):
+            return await query.message.reply("❌ Please reply to a video or audio-supported file.", quote=True)
+
+        media = orig.video or orig.document
+
+        with tempfile.NamedTemporaryFile(suffix=".mp4", delete=False) as tmp:
+            full_path = tmp.name
+        audio_path = full_path.replace(".mp4", ".m4a")
+
+        try:
+            # download with progress
+            await client.download_media(
+                message=media,
+                file_name=full_path,
+                progress=progress_for_pyrogram,
+                progress_args=("__Downloading…__", query.message, time.time())
+            )
+
+            # extract audio
+            cmd = [
+                "ffmpeg", "-i", full_path, "-vn", "-c:a", "aac", "-b:a", "192k", "-y", audio_path
+            ]
+            subprocess.run(cmd, check=True, capture_output=True)
+
+            await orig.reply_audio(
+                audio=audio_path,
+                caption="🎵 Extracted Audio",
+                quote=True
+            )
+        except subprocess.CalledProcessError as e:
+            await query.message.reply(
+                f"❌ FFmpeg error:\n<code>{e.stderr.decode()}</code>",
+                parse_mode=enums.ParseMode.HTML,
+                quote=True
+            )
+        finally:
+            for f in (full_path, audio_path):
+                if os.path.exists(f):
+                    os.remove(f)
 
     elif query.data == "trim":
         await query.answer()
@@ -295,6 +338,7 @@ async def callback_handler(client, query):
             [InlineKeyboardButton("Sᴀᴍᴩʟᴇ - 30ꜱ", callback_data="sample")],
             [InlineKeyboardButton("Gᴇɴᴇʀᴀᴛᴇ Sᴄʀᴇᴇɴꜱʜᴏᴛ", callback_data="screenshot")],
             [InlineKeyboardButton("Tʀɪᴍ", callback_data="trim")],
+            [InlineKeyboardButton("Exᴛʀᴀᴄᴛ Aᴜᴅɪᴏ", callback_data="extract_audio")],
             [InlineKeyboardButton("⚡ Fast Download", url=download_url),
              InlineKeyboardButton("▶️ Watch Online", url=stream_url)],
             [InlineKeyboardButton("🆘 Support", url="https://t.me/YourSupportGroup")]
