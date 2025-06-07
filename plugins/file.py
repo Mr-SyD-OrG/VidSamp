@@ -2,6 +2,7 @@ import math, time, random, os, tempfile, subprocess
 from pyrogram import Client, enums
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMediaPhoto
 from utils import is_req_subscribed
+from info import AUTH_CHANNEL
 # ── helper UI builders ─────────────────────────────────────────────────────────
 def build_even_keyboard() -> InlineKeyboardMarkup:
     rows, row = [], []
@@ -17,7 +18,27 @@ def generate_progress_bar(percentage: float) -> str:
     filled = "⬢" * math.floor(percentage / 5)
     empty  = "⬡" * (20 - math.floor(percentage / 5))
     return filled + empty
-
+    
+def parse_hms(text: str) -> int | None:
+    """
+    Convert h:m:s or m:s (hours optional) to seconds (int).
+    Returns None if the format is invalid.
+    """
+    parts = text.strip().split(":")
+    if not 2 <= len(parts) <= 3:
+        return None
+    try:
+        parts = [int(p) for p in parts]
+    except ValueError:
+        return None
+    if len(parts) == 2:  # m:s
+        m, s = parts
+        h = 0
+    else:                # h:m:s
+        h, m, s = parts
+    if m > 59 or s > 59 or h < 0 or m < 0 or s < 0:
+        return None
+    return h * 3600 + m * 60 + s
 def humanbytes(size: int) -> str:
     power, unit = 1024, 0
     units = ["B", "KiB", "MiB", "GiB", "TiB"]
