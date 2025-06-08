@@ -340,18 +340,20 @@ async def callback_handler(client: Client, query):
                     os.remove(f)
 
     elif query.data == "trim":
-        await query.answer()
+       # await query.answer()
         prompt1 = await orig.reply(
             "✂️ **Trim:**\nSend start time in `m:s` or `h:m:s` format:",
             quote=True
         )
 
         try:
+            await orig.reply("3")
             start_msg = await client.listen(
                 chat_id=query.from_user.id,
                 filters=filters.text,
                 timeout=90
             )
+            await orig.reply("3")
         except asyncio.TimeoutError:
             await prompt1.edit("⏰ Timed-out. Trim cancelled.", parse_mode="md")
             return
