@@ -4,6 +4,39 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMedi
 from utils import is_req_subscribed
 from info import AUTH_CHANNEL
 # ── helper UI builders ─────────────────────────────────────────────────────────
+async def handle_process_flags(client, query):
+    user_id = query.from_user.id
+    settings = await db.get_setings(user_id)
+    oneprocess = settings.get('oneprocess', False)
+    twoprocess = settings.get('twoprocess', False)
+
+    if oneprocess and twoprocess:
+        await query.message.reply(
+            "⚠️ You're already in a session. Please wait for it to complete before starting another.",
+            quote=True
+        )
+        return False
+
+    if oneprocess:
+        if await ensure_member(client, query):
+            if not twoprocess:
+                await db.set_user_settings(user_id, {'twoprocess': True})
+            return True
+        else:
+            btn = [
+                [InlineKeyboardButton("⊛ Join Updates Channel ⊛", url=invite_link.invite_link)],
+                [InlineKeyboardButton("↻ Try Again ↻", callback_data="checksub")]
+            ]
+            await query.message.reply(
+                text="Join our updates channel and then click Try Again to continue.",
+                reply_markup=InlineKeyboardMarkup(btn),
+                parse_mode=enums.ParseMode.MARKDOWN
+            )
+            return False
+    else:
+        await db.set_user_settings(user_id, {'oneprocess': True})
+        return True
+
 def build_even_keyboard() -> InlineKeyboardMarkup:
     rows, row = [], []
     for sec in range(2, 22, 2):
