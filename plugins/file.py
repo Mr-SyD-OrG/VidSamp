@@ -260,7 +260,7 @@ async def callback_handler(client, query):
                 progress=progress_for_pyrogram,
                 progress_args=("__Downloading…__", query.message, time.time())
             )
-
+            await query.message.edit("Gᴇɴᴇʀᴀᴛɪɴɢ ᴀɴᴅ ᴜᴩʟᴏᴀᴅɪɴɢ ᴀᴜᴅɪᴏ")
             # extract audio
             cmd = [
                 "ffmpeg", "-i", full_path, "-vn", "-c:a", "aac", "-b:a", "192k", "-y", audio_path
