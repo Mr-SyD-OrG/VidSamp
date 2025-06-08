@@ -72,16 +72,7 @@ async def get_shortlink(url):
     loop = asyncio.get_event_loop()
     return await loop.run_in_executor(None, get_shortlink_sync, url)
 
-@Client.on_message(filters.group | filters.private & filters.text & filters.incoming)
-async def give_filter(client, message):
-    content = message.text
-    if content.startswith("/") or content.startswith("#"): return  # ignore commands and hashtags
-    
-    await message.reply_text(
-          text="<i><b>Sᴇɴᴅ ꜰɪʟᴇ ᴛᴏ ɢᴇᴛ ᴡᴀᴛᴄʜ ᴏɴʟɪɴᴇ ᴀɴᴅ ꜰᴀꜱᴛ ᴅᴏᴡɴʟᴏᴀᴅ ʟɪɴᴋ.</b></i>",   
-          reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🥶 ʀᴇǫᴜᴇsᴛ ʜᴇʀᴇ 🥶", url=f"https://t.me/MovSearch_X1_Bot")]])
-    )
-    return
+
     
 #@Client.on_message(filters.private & filters.text & filters.incoming)
 async def pm_text(bot, message):
