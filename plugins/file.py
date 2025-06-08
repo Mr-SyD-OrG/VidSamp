@@ -175,7 +175,7 @@ def ffmpeg_screenshot(src: str, sec: int, dst: str):
 
 # ── main callback handler ──────────────────────────────────────────────────────
 @Client.on_callback_query()
-async def callback_handler(client, query):
+async def callback_handler(client: Client, query):
     if AUTH_CHANNEL and not await is_req_subscribed(client, query):
         btn = [[InlineKeyboardButton("⊛ Jᴏɪɴ Uᴘᴅᴀᴛᴇꜱ CʜᴀɴɴᴇL ⊛", url=invite_link.invite_link)],
                [InlineKeyboardButton("↻ Tʀʏ Aɢᴀɪɴ ↻", callback_data="checksub")]]
