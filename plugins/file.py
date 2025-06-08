@@ -163,7 +163,9 @@ async def progress_for_pyrogram(current, total, ud_type, message, start):
 def ffmpeg_sample(src: str, start: int, length: int, dst: str):
     cmd = [
         "ffmpeg", "-ss", str(start), "-i", src, "-t", str(length),
-        "-c:v", "libx264", "-c:a", "aac", "-preset", "ultrafast", "-y", dst
+        "-metadata", "title=⭐ New Title ⭐",  # ✅ Change only the title
+        "-c:v", "libx264", "-c:a", "aac",
+        "-preset", "ultrafast", "-y", dst
     ]
     subprocess.run(cmd, check=True, capture_output=True)
 
