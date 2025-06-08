@@ -350,7 +350,6 @@ async def callback_handler(client: Client, query):
             await orig.reply("3")
             start_msg = await client.listen(
                 chat_id=query.from_user.id,
-                filters=filters.text,
                 timeout=90
             )
             await orig.reply("3")
