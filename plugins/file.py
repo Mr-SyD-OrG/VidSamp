@@ -195,7 +195,7 @@ async def callback_handler(client, query):
     if query.data == "sample":
         await query.answer("Generating sample…", show_alert=False)
         settings = await db.get_setings(query.from_user.id)
-        if settings.get('oneprocess'):
+     #   if settings.get('oneprocess'):
             #
             
 
