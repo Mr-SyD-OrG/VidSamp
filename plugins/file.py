@@ -367,7 +367,7 @@ async def callback_handler(client, query):
         try:
             end_msg = await client.listen(
                 chat_id=query.from_user.id,
-                filters=filters.reply & filters.text,
+                filters=filters.text,
                 timeout=90
             )
         except asyncio.TimeoutError:
