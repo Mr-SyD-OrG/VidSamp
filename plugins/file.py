@@ -356,6 +356,7 @@ async def callback_handler(client: Client, query):
             await prompt1.edit("⏰ Timed-out. Trim cancelled.", parse_mode="md")
             return
 
+        await orig.reply("3")
         start_sec = parse_hms(start_msg.text)
         if start_sec is None:
             return await start_msg.reply("❌ Invalid time format. Trim cancelled.", quote=True)
