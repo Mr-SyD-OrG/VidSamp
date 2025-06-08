@@ -4,38 +4,92 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton, InputMedi
 from utils import is_req_subscribed
 from info import AUTH_CHANNEL
 # ── helper UI builders ─────────────────────────────────────────────────────────
+from pyrogram.errors import UserNotParticipant
+SYD_CHANNELS = ["Bot_Cracker", "Mod_Moviez_X", "MrSyD_Tg"]
+SYD_BACKUP_LINK = "https://t.me/+0Zi1FC4ulo8zYzVl"        # your backup group
+
+async def ensure_member(client, msg):
+    """
+    Returns True if the user is a member of every channel in SYD_CHANNELS.
+    Otherwise sends a join-prompt and returns False.
+    Works with both Message and CallbackQuery objects.
+    """
+    if hasattr(msg, "from_user"):         # Message
+        user_id   = msg.from_user.id
+        chat_id   = msg.chat.id
+        replyable = msg
+    else:                                 # CallbackQuery
+        user_id   = msg.from_user.id
+        chat_id   = msg.message.chat.id
+        replyable = msg.message          # reply to the msg that contains buttons
+
+    not_joined = []
+
+    for ch in SYD_CHANNELS:
+        try:
+            member = await client.get_chat_member(ch, user_id)
+            if member.status in {"kicked", "left"}:
+                not_joined.append(ch)
+        except UserNotParticipant:
+            not_joined.append(ch)
+        except Exception:
+            # channel is private / bot not admin etc. treat as not joined
+            not_joined.append(ch)
+
+    if not not_joined:
+        return True   # user is OK
+
+    # Build per-channel join buttons
+    join_rows = [[
+        InlineKeyboardButton(
+            text=f"✧ Jᴏɪɴ {str(ch).replace('_',' ').title()} ✧",
+            url=f"https://t.me/{str(ch).lstrip('@')}"
+        )
+    ] for ch in not_joined]
+
+    # Extra rows: backup & re-check
+    join_rows.append([InlineKeyboardButton("✧ Jᴏɪɴ Bᴀᴄᴋ Uᴩ ✧", url=SYD_BACKUP_LINK)])
+    join_rows.append([InlineKeyboardButton("☑ ᴊᴏɪɴᴇᴅ ☑", callback_data="check_subscription")])
+
+    text = (
+        "**Sᴏʀʀʏ, ʏᴏᴜ ᴍᴜꜱᴛ ᴊᴏɪɴ ᴏᴜʀ ᴄʜᴀɴɴᴇʟꜱ ᴛᴏ ᴜꜱᴇ ᴛʜɪꜱ ꜰᴇᴀᴛᴜʀᴇ.**\n"
+        "Pʟᴇᴀꜱᴇ ᴊᴏɪɴ ᴀɴᴅ ᴘʀᴇꜱꜱ **“ᴊᴏɪɴᴇᴅ”** ᴛᴏ ᴄᴏɴᴛɪɴᴜᴇ ⚡"
+    )
+
+    await replyable.reply_text(
+        text=text,
+        reply_markup=InlineKeyboardMarkup(join_rows),
+        quote=True,
+        disable_web_page_preview=True
+    )
+    return False
+
 async def handle_process_flags(client, query):
     user_id = query.from_user.id
     settings = await db.get_setings(user_id)
     oneprocess = settings.get('oneprocess', False)
     twoprocess = settings.get('twoprocess', False)
 
+    # If both flags are True, user is in two sessions already
     if oneprocess and twoprocess:
-        await query.message.reply(
-            "⚠️ You're already in a session. Please wait for it to complete before starting another.",
+        await query.message.reply_text(
+            "⚠️ You're already in **two active sessions**. Please wait for them to finish before starting a new one.",
             quote=True
         )
         return False
 
+    # First process is already running
     if oneprocess:
         if await ensure_member(client, query):
             if not twoprocess:
                 await db.set_user_settings(user_id, {'twoprocess': True})
             return True
-        else:
-            btn = [
-                [InlineKeyboardButton("⊛ Join Updates Channel ⊛", url=invite_link.invite_link)],
-                [InlineKeyboardButton("↻ Try Again ↻", callback_data="checksub")]
-            ]
-            await query.message.reply(
-                text="Join our updates channel and then click Try Again to continue.",
-                reply_markup=InlineKeyboardMarkup(btn),
-                parse_mode=enums.ParseMode.MARKDOWN
-            )
-            return False
-    else:
-        await db.set_user_settings(user_id, {'oneprocess': True})
-        return True
+        return False  # ensure_member already sends a message
+
+    # Start first session
+    await db.set_user_settings(user_id, {'oneprocess': True})
+    return True
+
 
 def build_even_keyboard() -> InlineKeyboardMarkup:
     rows, row = [], []
