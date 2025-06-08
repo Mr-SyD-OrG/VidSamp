@@ -356,6 +356,8 @@ async def callback_handler(client: Client, query):
         except asyncio.TimeoutError:
             await prompt1.edit("⏰ Timed-out. Trim cancelled.", parse_mode="md")
             return
+        except Exception as e:
+            await orig.reply(f"Error {e}")
 
         await orig.reply("3")
         start_sec = parse_hms(start_msg.text)
